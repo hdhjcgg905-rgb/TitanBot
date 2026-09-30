@@ -8,54 +8,54 @@ const MAX_OPTIONS = 10;
 export default {
     data: new SlashCommandBuilder()
         .setName('poll')
-        .setDescription('Create a simple poll with up to 10 options')
+        .setDescription('إنشاء  بسيط استطلاع مع أعلى إلى 10 الخيارات')
         .addStringOption(option =>
             option.setName('question')
-                .setDescription('The poll question')
+                .setDescription('الـ استطلاع السؤال')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('option1')
-                .setDescription('First option')
+                .setDescription('First الخيار')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('option2')
-                .setDescription('Second option')
+                .setDescription('الثانية الخيار')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('option3')
-                .setDescription('Third option (optional)')
+                .setDescription('Third الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option4')
-                .setDescription('Fourth option (optional)')
+                .setDescription('Fourth الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option5')
-                .setDescription('Fifth option (optional)')
+                .setDescription('Fifth الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option6')
-                .setDescription('Sixth option (optional)')
+                .setDescription('Sixth الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option7')
-                .setDescription('Seventh option (optional)')
+                .setDescription('Seventh الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option8')
-                .setDescription('Eighth option (optional)')
+                .setDescription('Eighth الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option9')
-                .setDescription('Ninth option (optional)')
+                .setDescription('Ninth الخيار (اختياري)')
                 .setRequired(false))
         .addStringOption(option =>
             option.setName('option10')
-                .setDescription('Tenth option (optional)')
+                .setDescription('Tenth الخيار (اختياري)')
                 .setRequired(false))
         .addBooleanOption(option =>
             option.setName('anonymous')
-                .setDescription('Make the poll anonymous (default: false)')
+                .setDescription('Make الـ استطلاع anonymous (الافتراضي: خطأ)')
                 .setRequired(false)),
 
     async execute(interaction) {
@@ -106,7 +106,7 @@ export default {
         }
 
         await InteractionHelper.safeEditReply(interaction, {
-            content: '✅ Poll created successfully!',
+            content: '✅ استطلاع تم الإنشاء بنجاح!',
         });
     },
 };
