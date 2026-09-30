@@ -94,8 +94,8 @@ function buildDashboardEmbed(config, guild) {
     const setupDone = config.setupWizardCompleted;
 
     return createEmbed({
-        title: '⚙️ Server Configuration',
-        description: `Core settings for **${guild.name}**. Pick an option below or run the setup wizard.`,
+        title: '⚙️ إعدادات السيرفر',
+        description: `Core الإعدادات لـ **${guild.name}**. اختيار  الخيار أدناه أو run الـ إعداد المعالج.`,
         color: 'info',
         fields: [
             {
@@ -144,21 +144,21 @@ function buildSettingsSelect(guildId) {
     return new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
             .setCustomId(`${DASHBOARD_CUSTOM_ID}:${guildId}`)
-            .setPlaceholder('⚙️ Select a setting to edit...')
+            .setPlaceholder('⚙️ اختر  الإعداد إلى تعديل...')
             .addOptions(
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Server Prefix')
-                    .setDescription('Change the text command prefix')
+                    .setLabel('السيرفر البادئة')
+                    .setDescription('تغيير بادئة أوامر النص')
                     .setValue('prefix')
                     .setEmoji('⌨️'),
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Moderator Role')
-                    .setDescription('Role used for moderation commands')
+                    .setLabel('المشرف الرتبة')
+                    .setDescription('الرتبة المستخدمة لأوامر الإشراف')
                     .setValue('modRole')
                     .setEmoji('🛡️'),
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Log Channel')
-                    .setDescription('Channel for system log messages')
+                    .setLabel('سجل القناة')
+                    .setDescription('القناة الخاصة برسائل سجل النظام')
                     .setValue('logChannelId')
                     .setEmoji('📋'),
             ),
@@ -193,7 +193,7 @@ function extractId(value) {
 async function askQuestion(dmChannel, userId, prompt, stepNumber, totalSteps) {
     await dmChannel.send({
         embeds: [createEmbed({
-            title: `Setup Question ${stepNumber}/${totalSteps}`,
+            title: `سؤال الإعداد ${stepNumber}/${totalSteps}`,
             description: prompt,
             color: 'primary',
         })],
@@ -346,7 +346,7 @@ async function runSetupWizard(buttonInteraction, config, guild, client, rootInte
         try {
             await dmChannel.send({
                 embeds: [createEmbed({
-                    title: '📝 Setup Wizard',
+                    title: '📝 معالج الإعداد',
                     description: 'Answer each question in this DM.\n\n• Type `skip` to keep the current value\n• Type `cancel` to stop the wizard',
                     color: 'info',
                 })],
@@ -470,19 +470,19 @@ async function showSettingModal(selectInteraction, guildId, setting) {
     if (setting === 'logChannelId') {
         const modal = new ModalBuilder()
             .setCustomId(modalCustomId)
-            .setTitle('📋 Update Log Channel');
+            .setTitle('📋 تحديث سجل القناة');
 
         const channelSelect = new ChannelSelectMenuBuilder()
             .setCustomId('log_channel')
-            .setPlaceholder('Select a text channel...')
+            .setPlaceholder('اختر  نص القناة...')
             .setMinValues(1)
             .setMaxValues(1)
             .addChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
             .setRequired(true);
 
         const channelLabel = new LabelBuilder()
-            .setLabel('Log Channel')
-            .setDescription('Channel where system log messages will be sent')
+            .setLabel('سجل القناة')
+            .setDescription('القناة التي ستُرسل إليها رسائل سجل النظام')
             .setChannelSelectMenuComponent(channelSelect);
 
         modal.addLabelComponents(channelLabel);
@@ -493,18 +493,18 @@ async function showSettingModal(selectInteraction, guildId, setting) {
     if (setting === 'modRole') {
         const modal = new ModalBuilder()
             .setCustomId(modalCustomId)
-            .setTitle('🛡️ Update Moderator Role');
+            .setTitle('🛡️ تحديث المشرف الرتبة');
 
         const roleSelect = new RoleSelectMenuBuilder()
             .setCustomId('mod_role')
-            .setPlaceholder('Select a moderator role...')
+            .setPlaceholder('اختر  المشرف الرتبة...')
             .setMinValues(1)
             .setMaxValues(1)
             .setRequired(true);
 
         const roleLabel = new LabelBuilder()
-            .setLabel('Moderator Role')
-            .setDescription('Role used for moderation commands')
+            .setLabel('المشرف الرتبة')
+            .setDescription('الرتبة المستخدمة لأوامر الإشراف')
             .setRoleSelectMenuComponent(roleSelect);
 
         modal.addLabelComponents(roleLabel);
@@ -514,11 +514,11 @@ async function showSettingModal(selectInteraction, guildId, setting) {
 
     const modal = new ModalBuilder()
         .setCustomId(modalCustomId)
-        .setTitle('Update Server Prefix');
+        .setTitle('تحديث السيرفر البادئة');
 
     const textInput = new TextInputBuilder()
         .setCustomId('value')
-        .setLabel('New prefix (1-10 characters, no spaces)')
+        .setLabel('الجديد البادئة (1-10 أحرف, لا مسافات)')
         .setStyle(TextInputStyle.Short)
         .setRequired(true)
         .setMinLength(1)
@@ -538,150 +538,4 @@ function resolveSettingModalValue(setting, submitted) {
     }
 
     if (setting === 'modRole') {
-        const roleId = submitted.fields.getField('mod_role')?.values?.[0];
-        if (!roleId) {
-            throw new Error('Please select a moderator role.');
-        }
-        return roleId;
-    }
-
-    const prefix = submitted.fields.getTextInputValue('value')?.trim();
-    if (!prefix || prefix.length < 1 || prefix.length > 10 || /\s/.test(prefix)) {
-        throw new Error('Prefix must be 1-10 characters with no spaces.');
-    }
-    return prefix;
-}
-
-function buildSettingSuccessMessage(setting, value, guild) {
-    if (setting === 'logChannelId') {
-        const channel = guild.channels.cache.get(value);
-        return `Log channel set to ${channel ?? `<#${value}>`}.`;
-    }
-
-    if (setting === 'modRole') {
-        const role = guild.roles.cache.get(value);
-        return `Moderator role set to ${role ?? `<@&${value}>`}.`;
-    }
-
-    return `Server prefix set to \`${value}\`.`;
-}
-
-async function handleSettingModalSubmit(selectInteraction, rootInteraction, setting, guildId, client) {
-    const modalCustomId = `config_wizard_modal:${setting}:${guildId}`;
-
-    const submitted = await selectInteraction
-        .awaitModalSubmit({
-            filter: (modalInteraction) =>
-                modalInteraction.customId === modalCustomId &&
-                modalInteraction.user.id === selectInteraction.user.id,
-            time: 120_000,
-        })
-        .catch(() => null);
-
-    if (!submitted) {
-        return;
-    }
-
-    try {
-        const value = resolveSettingModalValue(setting, submitted);
-        await ConfigService.updateSetting(client, guildId, setting, value, submitted.user.id);
-
-        await submitted.reply({
-            embeds: [successEmbed('Configuration Updated', buildSettingSuccessMessage(setting, value, submitted.guild))],
-            flags: MessageFlags.Ephemeral,
-        });
-
-        const updatedConfig = await getGuildConfig(client, guildId);
-        await refreshDashboard(rootInteraction, updatedConfig, submitted.guild);
-    } catch (error) {
-        logger.error('Config wizard modal submit error:', error);
-        await replyUserError(submitted, {
-            type: ErrorTypes.CONFIGURATION,
-            message: error.message || 'Please try again.',
-        }).catch(() => {});
-    }
-}
-
-export default {
-    slashOnly: true,
-    data: new SlashCommandBuilder()
-        .setName('configwizard')
-        .setDescription('Open the server configuration dashboard and setup wizard')
-        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-        .setDMPermission(false),
-    category: 'Core',
-
-    async execute(interaction) {
-        try {
-            const deferSuccess = await InteractionHelper.safeDefer(interaction, { flags: MessageFlags.Ephemeral });
-            if (!deferSuccess) {
-                return;
-            }
-
-            if (!interaction.memberPermissions?.has(PermissionFlagsBits.ManageGuild)) {
-                return replyUserError(interaction, {
-                    type: ErrorTypes.PERMISSION,
-                    message: 'You need the **Manage Server** permission to use this command.',
-                });
-            }
-
-            const guildConfig = await getGuildConfig(interaction.client, interaction.guildId);
-            const embed = buildDashboardEmbed(guildConfig, interaction.guild);
-            const components = [buildButtonRow(guildConfig, interaction.guildId), buildSettingsSelect(interaction.guildId)];
-
-            await InteractionHelper.safeEditReply(interaction, { embeds: [embed], components });
-
-            const replyMessage = await interaction.fetchReply().catch(() => null);
-            if (!replyMessage) {
-                return;
-            }
-
-            const collectorFilter = (componentInteraction) =>
-                componentInteraction.user.id === interaction.user.id &&
-                componentInteraction.customId.includes(`:${interaction.guildId}`);
-
-            const componentCollector = replyMessage.createMessageComponentCollector({
-                filter: collectorFilter,
-                time: 600_000,
-            });
-
-            componentCollector.on('collect', async (componentInteraction) => {
-                try {
-                    if (componentInteraction.isButton()) {
-                        await componentInteraction.deferUpdate();
-
-                        if (componentInteraction.customId.startsWith(`${WIZARD_BUTTON_ID}:`)) {
-                            const latestConfig = await getGuildConfig(interaction.client, interaction.guildId);
-                            await runSetupWizard(componentInteraction, latestConfig, interaction.guild, interaction.client, interaction);
-                        }
-                        return;
-                    }
-
-                    if (componentInteraction.isStringSelectMenu()) {
-                        const selected = componentInteraction.values[0];
-                        await showSettingModal(componentInteraction, interaction.guildId, selected);
-                        await handleSettingModalSubmit(
-                            componentInteraction,
-                            interaction,
-                            selected,
-                            interaction.guildId,
-                            interaction.client,
-                        );
-                    }
-                } catch (error) {
-                    logger.error('Config dashboard interaction error:', error);
-                    await replyUserError(componentInteraction, {
-                        type: ErrorTypes.UNKNOWN,
-                        message: 'Failed to process your selection. Please try again.',
-                    }).catch(() => {});
-                }
-            });
-        } catch (error) {
-            logger.error('Config command error:', error);
-            await replyUserError(interaction, {
-                type: ErrorTypes.CONFIGURATION,
-                message: 'Failed to open configuration dashboard. Please try again.',
-            });
-        }
-    },
-};
+        const roleId = submit
