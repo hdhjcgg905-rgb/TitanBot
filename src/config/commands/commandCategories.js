@@ -1,10 +1,11 @@
-/**import { spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import { logger } from '../../utils/logger.js';
- * البيانات الوصفية لفئات الأوامر الخاصة بمدير الوصول للأوامر.
+/**
+ * البيانات الوصفية لفئات الأوامر الخاصة بمدير الوصول للأوامر
  */
 
 export const CATEGORY_ICONS = {
@@ -180,4 +181,9 @@ run().catch((error) => {
 // الحصول على أيقونة الفئة
 export function getCategoryIcon(category) {
   return CATEGORY_ICONS[category] || CATEGORY_ICONS[formatCategoryName(category)] || '📁';
+}
+export function formatCategoryName(category) {
+  if (!category) return '';
+  const key = normalizeCategoryKey(category);
+  return key.charAt(0).toUpperCase() + key.slice(1);
 }
