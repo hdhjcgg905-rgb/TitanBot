@@ -36,7 +36,7 @@ export default {
         guildId: newMessage.guild.id,
         eventType: EVENT_TYPES.MESSAGE_EDIT,
         data: {
-          title: 'Message edited',
+          title: 'الرسالة تم التعديل',
           lines: metaLines,
           quoted: true,
           fields: [
