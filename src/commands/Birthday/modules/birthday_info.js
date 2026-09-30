@@ -16,7 +16,7 @@ export default {
         if (!birthdayData) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
-                .setTitle('No Birthday Found')
+                .setTitle('لا أعياد الميلاد تم العثور')
                 .setDescription(targetUser.id === interaction.user.id 
                     ? "You haven't set your birthday yet. Use `/birthday set` to add it!"
                     : `${targetUser.username} hasn't set their birthday yet.`);
@@ -27,8 +27,8 @@ export default {
 
         const embed = new EmbedBuilder()
             .setColor(0x00FF00)
-            .setTitle('Birthday Information')
-            .setDescription(`**Date:** ${birthdayData.monthName} ${birthdayData.day}\n**User:** ${targetUser.toString()}`);
+            .setTitle('أعياد الميلاد المعلومات')
+            .setDescription(`**التاريخ:** ${birthdayData.monthName} ${birthdayData.day}\n**المستخدم:** ${targetUser.toString()}`);
 
         await InteractionHelper.safeEditReply(interaction, {
             embeds: [embed]
