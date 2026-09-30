@@ -11,7 +11,7 @@ export default {
       option
         .setName("target")
         .setDescription(
-          "The user whose avatar you want to see (defaults to you)",
+          "الـ المستخدم الذي الصورة الشخصية أنت تريد إلى ترى (افتراضيًا إلى أنت)",
         ),
     ),
 
@@ -21,7 +21,7 @@ export default {
 
     const embed = createEmbed({ 
       title: `${user.username}'s Avatar`, 
-      description: `[Download Link](${avatarUrl})` 
+      description: `[Download الرابط](${avatarUrl})` 
     })
       .setImage(avatarUrl);
 
