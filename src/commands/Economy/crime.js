@@ -19,11 +19,11 @@ const CRIME_TYPES = [
 export default {
     data: new SlashCommandBuilder()
         .setName('crime')
-        .setDescription('Commit a crime to earn money (risky)')
+        .setDescription('ارتكاب  الجريمة إلى اكسب المال (محفوف بالمخاطر)')
         .addStringOption(option =>
             option
                 .setName('type')
-                .setDescription('Type of crime to commit')
+                .setDescription('النوع من الجريمة إلى ارتكاب')
                 .setRequired(true)
                 .addChoices(
                     { name: 'Pickpocketing', value: 'pickpocketing' },
