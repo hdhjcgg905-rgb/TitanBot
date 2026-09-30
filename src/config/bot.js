@@ -24,7 +24,7 @@ export const botConfig = {
     activities: [
       {
         name: "Custom Status", // required by Discord API, not shown in the client
-        state: "stalking",     // this is what people actually see
+        state: "NETGEAR READYNAS",     // this is what people actually see
         type: 4,               // Custom
       },
     ],
@@ -61,9 +61,9 @@ export const botConfig = {
   applications: {
     // Default questions shown when someone fills out an application.
     defaultQuestions: [
-      { question: "What is your name?", required: true },
-      { question: "How old are you?", required: true },
-      { question: "Why do you want to join?", required: true },
+      { question: "ما اسمك؟", required: true },
+      { question: "كم عمرك؟", required: true },
+      { question: "لماذا تريد الانضمام؟", required: true },
     ],
 
     // Embed colors by application status.
@@ -224,27 +224,27 @@ export const botConfig = {
       none: {
         emoji: "⚪",
         color: "#95A5A6",
-        label: "None",
+        label: "لا توجد",
       },
       low: {
         emoji: "🟢",
         color: "#2ECC71",
-        label: "Low",
+        label: "منخفض",
       },
       medium: {
         emoji: "🟡",
         color: "#F1C40F",
-        label: "Medium",
+        label: "متوسط",
       },
       high: {
         emoji: "🔴",
         color: "#E74C3C",
-        label: "High",
+        label: "عالي",
       },
       urgent: {
         emoji: "🚨",
         color: "#E91E63",
-        label: "Urgent",
+        label: "عاجلة",
       },
     },
 
@@ -302,10 +302,10 @@ export const botConfig = {
   // =========================
   verification: {
     // Message shown when posting the verification panel.
-    defaultMessage: "Click the button below to verify yourself and gain access to the server!",
+    defaultMessage: "اضغط الزر أدناه للتحقق من نفسك والحصول على صلاحية الدخول إلى السيرفر!",
 
     // Text on the verification button.
-    defaultButtonText: "Verify",
+    defaultButtonText: "تحقق",
 
     // Automatic verification behavior.
     autoVerify: {
@@ -389,8 +389,8 @@ export const botConfig = {
   counters: {
     defaults: {
       // Default naming/description templates for counter entries.
-      name: "{name} Counter",
-      description: "Server {name} counter",
+      name: "عداد {name}",
+      description: "عداد {name} في السيرفر",
       // Channel type used for counters (typically "voice").
       type: "voice",
       // Channel name format. `{count}` is replaced automatically.
@@ -411,19 +411,19 @@ export const botConfig = {
     types: {
       // Built-in counter types and how each count is calculated.
       members: {
-        name: "👥 Members",
-        description: "Total members in the server",
+        name: "👥 الأعضاء",
+        description: "إجمالي الأعضاء في السيرفر",
         getCount: (guild) => guild.memberCount.toString(),
       },
       bots: {
-        name: "🤖 Bots",
-        description: "Total bot accounts in the server",
+        name: "🤖 البوتات",
+        description: "إجمالي حسابات البوتات في السيرفر",
         getCount: (guild) =>
           guild.members.cache.filter((m) => m.user.bot).size.toString(),
       },
       members_only: {
-        name: "👤 Humans",
-        description: "Total human members (non-bots)",
+        name: "👤 البشر",
+        description: "إجمالي الأعضاء البشر (باستثناء البوتات)",
         getCount: (guild) =>
           guild.members.cache.filter((m) => !m.user.bot).size.toString(),
       },
