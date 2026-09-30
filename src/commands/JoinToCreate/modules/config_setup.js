@@ -38,8 +38,8 @@ export default {
         }
 
         const embed = new EmbedBuilder()
-            .setTitle('Join to Create Configuration')
-            .setDescription(`Configure settings for ${triggerChannel}`)
+            .setTitle('انضمام إلى إنشاء الإعدادات')
+            .setDescription(`إعداد الإعدادات لـ ${triggerChannel}`)
             .setColor(getColor('info'))
             .addFields(
                 {
@@ -63,27 +63,27 @@ export default {
 
         const selectMenu = new StringSelectMenuBuilder()
             .setCustomId(`jointocreate_config_${triggerChannel.id}`)
-            .setPlaceholder('Select a configuration option')
+            .setPlaceholder('اختر  الإعدادات الخيار')
             .addOptions(
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Change Channel Name Template')
-                    .setDescription('Modify the template for temporary channel names')
+                    .setLabel('تغيير القناة الاسم القالب')
+                    .setDescription('تعديل الـ القالب لـ المؤقتة القناة names')
                     .setValue('name_template'),
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Change User Limit')
-                    .setDescription('Set maximum users per temporary channel')
+                    .setLabel('تغيير المستخدم حد')
+                    .setDescription('تعيين الأقصى المستخدمون لكل المؤقتة القناة')
                     .setValue('user_limit'),
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Change Bitrate')
-                    .setDescription('Adjust audio quality for temporary channels')
+                    .setLabel('تغيير معدل البت')
+                    .setDescription('Adjust audio الجودة لـ المؤقتة القنوات')
                     .setValue('bitrate'),
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('Remove This Trigger Channel')
-                    .setDescription('Remove this channel from the Join to Create system')
+                    .setLabel('إزالة هذا التشغيل القناة')
+                    .setDescription('إزالة هذا القناة من الـ انضمام إلى إنشاء النظام')
                     .setValue('remove_trigger'),
                 new StringSelectMenuOptionBuilder()
-                    .setLabel('View Current Settings')
-                    .setDescription('Show all current configuration details')
+                    .setLabel('عرض الحالي الإعدادات')
+                    .setDescription('عرض الكل الحالي الإعدادات التفاصيل')
                     .setValue('view_settings')
             );
 
@@ -170,8 +170,8 @@ time: 60000
 
 async function handleNameTemplateChange(interaction, triggerChannel, currentConfig, client) {
     const embed = new EmbedBuilder()
-        .setTitle('Channel Name Template Configuration')
-        .setDescription('Please enter the new channel name template.')
+        .setTitle('القناة الاسم القالب الإعدادات')
+        .setDescription('يرجى أدخل الـ الجديد القناة الاسم القالب.')
         .addFields(
             {
                 name: 'Available Variables',
@@ -253,8 +253,8 @@ time: 600_000,
 
 async function handleUserLimitChange(interaction, triggerChannel, currentConfig, client) {
     const embed = new EmbedBuilder()
-        .setTitle('User Limit Configuration')
-        .setDescription('Please enter the new user limit (0-99, where 0 = no limit).')
+        .setTitle('المستخدم حد الإعدادات')
+        .setDescription('يرجى أدخل الـ الجديد المستخدم حد (0-99, حيث 0 = لا حد).')
         .addFields(
             {
                 name: 'Current Limit',
@@ -331,8 +331,8 @@ async function handleUserLimitChange(interaction, triggerChannel, currentConfig,
 
 async function handleBitrateChange(interaction, triggerChannel, currentConfig, client) {
     const embed = new EmbedBuilder()
-        .setTitle('Bitrate Configuration')
-        .setDescription('Please enter the new bitrate in kbps (8-384).')
+        .setTitle('معدل البت الإعدادات')
+        .setDescription('يرجى أدخل الـ الجديد معدل البت في كيلوبت/ثانية (8-384).')
         .addFields(
             {
                 name: 'Current Bitrate',
@@ -414,19 +414,19 @@ async function handleBitrateChange(interaction, triggerChannel, currentConfig, c
 
 async function handleRemoveTrigger(interaction, triggerChannel, currentConfig, client) {
     const embed = new EmbedBuilder()
-        .setTitle('Remove Trigger Channel')
-        .setDescription(`Are you sure you want to remove ${triggerChannel} from the Join to Create system?`)
+        .setTitle('إزالة التشغيل القناة')
+        .setDescription(`هل أنت متأكد أنت تريد إلى إزالة ${triggerChannel} من الـ انضمام إلى إنشاء النظام?`)
         .setColor('#ff6600')
         .setFooter({ text: 'This action cannot be undone' });
 
     const row = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
             .setCustomId(`confirm_remove_${triggerChannel.id}`)
-            .setLabel('Remove Channel')
+            .setLabel('إزالة القناة')
             .setStyle(ButtonStyle.Danger),
         new ButtonBuilder()
             .setCustomId(`cancel_remove_${triggerChannel.id}`)
-            .setLabel('Cancel')
+            .setLabel('إلغاء')
             .setStyle(ButtonStyle.Secondary)
     );
 
@@ -490,60 +490,4 @@ async function handleRemoveTrigger(interaction, triggerChannel, currentConfig, c
         if (reason === 'time') {
             replyUserError(interaction, {
                 type: ErrorTypes.RATE_LIMIT,
-                message: 'No response received. Removal cancelled.'
-            }).catch(() => {});
-        }
-    });
-}
-
-async function handleViewSettings(interaction, triggerChannel, currentConfig, client) {
-    const channelConfig = currentConfig.channelOptions?.[triggerChannel.id] || {};
-    
-    const embed = new EmbedBuilder()
-        .setTitle('Current Settings')
-        .setDescription(`Configuration for ${triggerChannel}`)
-        .setColor(getColor('info'))
-        .addFields(
-            {
-                name: 'Trigger Channel',
-                value: `${triggerChannel} (${triggerChannel.id})`,
-                inline: false
-            },
-            {
-                name: 'Channel Name Template',
-                value: `\`${channelConfig.nameTemplate || currentConfig.channelNameTemplate}\``,
-                inline: false
-            },
-            {
-                name: 'User Limit',
-                value: `${channelConfig.userLimit || currentConfig.userLimit === 0 ? 'No limit' : (channelConfig.userLimit || currentConfig.userLimit) + ' users'}`,
-                inline: true
-            },
-            {
-                name: 'Bitrate',
-                value: `${(channelConfig.bitrate || currentConfig.bitrate) / 1000} kbps`,
-                inline: true
-            },
-            {
-                name: 'Category',
-                value: currentConfig.categoryId ? `<#${currentConfig.categoryId}>` : 'Not set',
-                inline: true
-            },
-            {
-                name: 'System Status',
-                value: currentConfig.enabled ? '✅ Enabled' : '❌ Disabled',
-                inline: true
-            },
-            {
-                name: 'Active Temporary Channels',
-                value: Object.keys(currentConfig.temporaryChannels || {}).length.toString(),
-                inline: true
-            }
-        )
-        .setTimestamp();
-
-    await interaction.followUp({ 
-        embeds: [embed], 
-        flags: MessageFlags.Ephemeral 
-    });
-}
+                messa
