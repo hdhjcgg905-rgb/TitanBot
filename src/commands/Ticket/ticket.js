@@ -17,13 +17,13 @@ export default {
             subcommand
                 .setName("setup")
                 .setDescription(
-                    "Sets up the ticket creation panel in a specified channel.",
+                    "Sets أعلى الـ تذكرة الإنشاء اللوحة في  المحددة القناة.",
                 )
                 .addChannelOption((option) =>
                     option
 .setName("panel_channel")
                         .setDescription(
-                            "The channel where the ticket panel will be sent.",
+                            "الـ القناة حيث الـ تذكرة اللوحة سيتم يكون أُرسل.",
                         )
                         .addChannelTypes(ChannelType.GuildText)
                         .setRequired(true),
@@ -33,7 +33,7 @@ export default {
                     option
                         .setName("panel_message")
                         .setDescription(
-                            "The main message/description for the ticket panel.",
+                            "الـ main الرسالة/الوصف لـ الـ تذكرة اللوحة.",
                         )
                         .setRequired(true),
                 )
@@ -41,7 +41,7 @@ export default {
                     option
                         .setName("button_label")
                         .setDescription(
-                            "The label for the ticket creation button (default: Create Ticket)",
+                            "الـ الاسم لـ الـ تذكرة الإنشاء الزر (الافتراضي: إنشاء التذكرة)",
                         )
                         .setRequired(false),
                 )
@@ -49,7 +49,7 @@ export default {
                     option
                         .setName("category")
                         .setDescription(
-                            "The category where new tickets will be created (optional).",
+                            "الـ الفئة حيث الجديد التذاكر سيتم يكون تم الإنشاء (اختياري).",
                         )
                         .addChannelTypes(ChannelType.GuildCategory)
                         .setRequired(false),
@@ -58,7 +58,7 @@ export default {
                     option
                         .setName("closed_category")
                         .setDescription(
-                            "The category where closed tickets will be moved (optional).",
+                            "الـ الفئة حيث مغلقة التذاكر سيتم يكون منقولة (اختياري).",
                         )
                         .addChannelTypes(ChannelType.GuildCategory)
                         .setRequired(false),
@@ -67,14 +67,14 @@ export default {
                     option
                         .setName("staff_role")
                         .setDescription(
-                            "The role that can access tickets (optional).",
+                            "الـ الرتبة ذلك يمكن الوصول التذاكر (اختياري).",
                         )
                         .setRequired(false),
                 )
                 .addIntegerOption((option) =>
                     option
                         .setName("max_tickets_per_user")
-                        .setDescription("Maximum number of tickets a user can create (default: 3)")
+                        .setDescription("الحد الأقصى للتذاكر التي يمكن للمستخدم إنشاؤها (الافتراضي: 3)")
                         .setMinValue(1)
                         .setMaxValue(10)
                         .setRequired(false),
@@ -82,14 +82,14 @@ export default {
                 .addBooleanOption((option) =>
                     option
                         .setName("dm_on_close")
-                        .setDescription("Send DM to user when their ticket is closed (default: true)")
+                        .setDescription("إرسال رسالة خاصة للمستخدم عند إغلاق تذكرته (الافتراضي: مفعّل)")
                         .setRequired(false),
                 ),
         )
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("dashboard")
-                .setDescription("Open the interactive ticket system dashboard"),
+                .setDescription("فتح لوحة التحكم التفاعلية لنظام التذاكر"),
         ),
     category: "ticket",
 
@@ -137,7 +137,7 @@ const panelMessage = interaction.options.getString("panel_message") || "Click th
 const dmOnClose = interaction.options.getBoolean("dm_on_close") !== false;
 
             const setupEmbed = createEmbed({ 
-                title: "Support Tickets", 
+                title: "تذاكر الدعم", 
 description: panelMessage,
                 color: getColor('info')
             });
@@ -224,8 +224,8 @@ description: panelMessage,
                 });
 
                 const logEmbed = createEmbed({
-                    title: "Ticket System Setup (Configuration Log)",
-                    description: `The ticket panel was set up in ${panelChannel} by ${interaction.user}.`,
+                    title: "إعداد نظام التذاكر (سجل الإعداد)",
+                    description: `الـ تذكرة اللوحة كان تعيين أعلى في ${panelChannel} بواسطة ${interaction.user}.`,
                     color: getColor('warning')
                 })
                     .addFields(
