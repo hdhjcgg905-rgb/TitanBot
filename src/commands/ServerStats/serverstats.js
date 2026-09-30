@@ -13,16 +13,16 @@ import { replyUserError, ErrorTypes } from '../../utils/errorHandler.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("serverstats")
-        .setDescription("Manage server statistics that track member counts and channel data")
+        .setDescription("إدارة إحصاءات السيرفر التي تتتبع أعداد الأعضاء وبيانات القنوات")
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
         .addSubcommand(subcommand =>
             subcommand
                 .setName("create")
-                .setDescription("Create a new statistics tracker channel in a category")
+                .setDescription("إنشاء قناة جديدة لتتبع الإحصاءات داخل فئة")
                 .addStringOption(option =>
                     option
                         .setName("type")
-                        .setDescription("The type of statistics to track")
+                        .setDescription("نوع الإحصاءات المطلوب تتبعها")
                         .setRequired(true)
                         .addChoices(
                             { name: "members + bots", value: "members" },
@@ -33,7 +33,7 @@ export default {
                 .addStringOption(option =>
                     option
                         .setName("channel_type")
-                        .setDescription("The channel type to create for this tracker")
+                        .setDescription("نوع القناة التي سيتم إنشاؤها لهذا المتتبع")
                         .setRequired(true)
                         .addChoices(
                             { name: "voice channel (recommended)", value: "voice" },
@@ -43,7 +43,7 @@ export default {
                 .addChannelOption(option =>
                     option
                         .setName("category")
-                        .setDescription("The category where the statistics tracker channel will be created")
+                        .setDescription("الفئة التي ستُنشأ فيها قناة متتبع الإحصاءات")
                         .setRequired(true)
                         .addChannelTypes(ChannelType.GuildCategory)
                 )
@@ -51,22 +51,22 @@ export default {
         .addSubcommand(subcommand =>
             subcommand
                 .setName("list")
-                .setDescription("List all statistics trackers for this server")
+                .setDescription("عرض جميع متتبعات الإحصاءات لهذا السيرفر")
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("update")
-                .setDescription("Update an existing statistics tracker")
+                .setDescription("تحديث متتبع إحصاءات موجود")
                 .addStringOption(option =>
                     option
                         .setName("counter-id")
-                        .setDescription("The ID of the tracker to update")
+                        .setDescription("معرّف المتتبع المطلوب تحديثه")
                         .setRequired(true)
                 )
                 .addStringOption(option =>
                     option
                         .setName("type")
-                        .setDescription("The new tracker type")
+                        .setDescription("نوع المتتبع الجديد")
                         .setRequired(false)
                         .addChoices(
                             { name: "members + bots", value: "members" },
@@ -78,11 +78,11 @@ export default {
         .addSubcommand(subcommand =>
             subcommand
                 .setName("delete")
-                .setDescription("Delete an existing statistics tracker")
+                .setDescription("حذف متتبع إحصاءات موجود")
                 .addStringOption(option =>
                     option
                         .setName("counter-id")
-                        .setDescription("The ID of the tracker to delete")
+                        .setDescription("معرّف المتتبع المطلوب حذفه")
                         .setRequired(true)
                 )
         ),
