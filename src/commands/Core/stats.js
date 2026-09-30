@@ -6,7 +6,7 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
     .setName("stats")
-    .setDescription("View bot statistics"),
+    .setDescription("عرض البوت الإحصاءات"),
 
   async execute(interaction) {
     try {
@@ -19,7 +19,7 @@ export default {
       );
       const nodeVersion = process.version;
 
-      const embed = createEmbed({ title: "System Statistics", description: "Real-time performance metrics." }).addFields(
+      const embed = createEmbed({ title: "النظام الإحصاءات", description: "فوري الأداء المؤشرات." }).addFields(
         { name: "Servers", value: `${totalGuilds}`, inline: true },
         { name: "Users", value: `${totalMembers}`, inline: true },
         { name: "Node.js", value: `${nodeVersion}`, inline: true },
@@ -35,7 +35,7 @@ export default {
     } catch (error) {
       logger.error('Stats command error:', error);
       return InteractionHelper.safeEditReply(interaction, {
-        embeds: [createEmbed({ title: 'System Error', description: 'Could not fetch system statistics.', color: 'error' })],
+        embeds: [createEmbed({ title: 'النظام خطأ', description: 'تعذر ليس fetch النظام الإحصاءات.', color: 'error' })],
         flags: MessageFlags.Ephemeral,
       });
     }
