@@ -9,22 +9,22 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("massban")
-        .setDescription("Ban multiple users from the server at once")
+        .setDescription("حظر متعدد المستخدمون من الـ السيرفر في مرة واحدة")
         .addStringOption(option =>
             option
                 .setName("users")
-                .setDescription("User IDs or mentions to ban (separated by spaces or commas)")
+                .setDescription("المستخدم المعرّفات أو الإشارات إلى حظر (مفصولة بواسطة مسافات أو فواصل)")
                 .setRequired(true)
         )
         .addStringOption(option =>
             option.setName("reason")
-                .setDescription("Reason for the mass ban")
+                .setDescription("السبب لـ الـ جماعي حظر")
                 .setRequired(false)
         )
         .addIntegerOption(option =>
             option
                 .setName("delete_days")
-                .setDescription("Number of days of messages to delete (0-7)")
+                .setDescription("الرقم من الأيام من الرسائل إلى حذف (0-7)")
                 .setMinValue(0)
                 .setMaxValue(7)
                 .setRequired(false)
