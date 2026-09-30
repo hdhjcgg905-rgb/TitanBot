@@ -13,11 +13,11 @@ const FINE_PERCENTAGE = 0.1;
 export default {
     data: new SlashCommandBuilder()
         .setName('rob')
-        .setDescription('Attempt to rob another user (very risky)')
+        .setDescription('Attempt إلى سرقة آخر المستخدم (جدًا محفوف بالمخاطر)')
         .addUserOption(option =>
             option
                 .setName('user')
-                .setDescription('User to rob')
+                .setDescription('المستخدم إلى سرقة')
                 .setRequired(true)
         ),
 
