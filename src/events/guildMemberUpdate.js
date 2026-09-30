@@ -16,7 +16,7 @@ export default {
           guildId: newMember.guild.id,
           eventType: EVENT_TYPES.MEMBER_NAME_CHANGE,
           data: {
-            title: 'Nickname changed',
+            title: 'الاسم المستعار تغيّر',
             lines: [
               `**User:** ${newMember.user.toString()} (${newMember.user.tag})`,
               `**ID:** \`${newMember.user.id}\``,
