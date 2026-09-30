@@ -32,18 +32,18 @@ function resolveTargetChannel(interaction) {
 export default {
     data: new SlashCommandBuilder()
         .setName('say')
-        .setDescription('Send a plain message as the bot')
+        .setDescription('إرسال  plain الرسالة as الـ البوت')
         .addStringOption((option) =>
             option
                 .setName('message')
-                .setDescription('The message the bot should send')
+                .setDescription('الـ الرسالة الـ البوت ينبغي إرسال')
                 .setRequired(true)
                 .setMaxLength(2000),
         )
         .addChannelOption((option) =>
             option
                 .setName('channel')
-                .setDescription('Channel to send in (defaults to the current channel)')
+                .setDescription('القناة إلى إرسال في (افتراضيًا إلى الـ الحالي القناة)')
                 .addChannelTypes(...TEXT_CHANNEL_TYPES)
                 .setRequired(false),
         )
