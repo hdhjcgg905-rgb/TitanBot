@@ -13,13 +13,13 @@ export default {
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('The user to set the level for')
+        .setDescription('المستخدم المطلوب تعيين مستواه')
         .setRequired(true)
     )
     .addIntegerOption((option) =>
       option
         .setName('level')
-        .setDescription('The level to set')
+        .setDescription('المستوى المطلوب تعيينه')
         .setRequired(true)
         .setMinValue(0)
     )
@@ -43,7 +43,7 @@ export default {
         embeds: [
           new EmbedBuilder()
             .setColor('#f1c40f')
-            .setDescription('The leveling system is currently disabled on this server.')
+            .setDescription('نظام المستويات معطّل حاليًا في هذا السيرفر.')
         ],
         flags: MessageFlags.Ephemeral
       });
@@ -67,7 +67,7 @@ export default {
     await InteractionHelper.safeEditReply(interaction, {
       embeds: [
         createEmbed({
-          title: 'Level Set',
+          title: 'تم تعيين المستوى',
           description: `Successfully set ${targetUser.tag}'s level to **${newLevel}**.\n**Total XP:** ${userData.totalXp}`,
           color: 'success'
         })
