@@ -79,7 +79,7 @@ export default {
                 : "No economy data is available for this server yet.";
 
             const embed = createEmbed({
-                title: `Economy Leaderboard`,
+                title: `الاقتصاد قائمة المتصدرين`,
                 description,
                 footer: `Your Rank: ${userRank > 0 ?`#${userRank}`: "No ranking data available"}`,
             });
