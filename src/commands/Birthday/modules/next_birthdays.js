@@ -13,7 +13,7 @@ export default {
         if (next5.length === 0) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
-                .setTitle('No Birthdays Found')
+                .setTitle('لا أعياد الميلاد تم العثور')
                 .setDescription('No birthdays have been set up in this server yet. Use `/birthday set` to add birthdays!');
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [embed]
@@ -42,8 +42,8 @@ export default {
         if (displayIndex === 0) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
-                .setTitle('No Upcoming Birthdays')
-                .setDescription('No upcoming birthdays found for current server members.');
+                .setTitle('لا القادمة أعياد الميلاد')
+                .setDescription('لا القادمة أعياد الميلاد تم العثور لـ الحالي السيرفر الأعضاء.');
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [embed]
             });
@@ -74,7 +74,7 @@ export default {
 
         const embed = new EmbedBuilder()
             .setColor(0x00FF00)
-            .setTitle('Next 5 Upcoming Birthdays')
+            .setTitle('التالي 5 القادمة أعياد الميلاد')
             .setDescription(birthdayList);
 
         await InteractionHelper.safeEditReply(interaction, {
