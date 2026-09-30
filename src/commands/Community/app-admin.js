@@ -38,32 +38,32 @@ function getApplicationStatusPresentation(statusValue) {
 export default {
     data: new SlashCommandBuilder()
     .setName("app-admin")
-    .setDescription("Manage staff applications")
+    .setDescription("إدارة الإدارة طلبات التقديم")
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .addSubcommand((subcommand) =>
         subcommand
             .setName("setup")
-            .setDescription("Set up a new application")
+            .setDescription("تعيين أعلى  الجديد طلب التقديم")
     )
     .addSubcommand((subcommand) =>
         subcommand
             .setName("review")
-            .setDescription("Approve or deny an application")
+            .setDescription("موافقة أو رفض  طلب التقديم")
             .addStringOption((option) =>
                 option
                     .setName("id")
-                    .setDescription("The application ID")
+                    .setDescription("الـ طلب التقديم ID")
                     .setRequired(true),
             ),
     )
     .addSubcommand((subcommand) =>
         subcommand
             .setName("list")
-            .setDescription("List all applications")
+            .setDescription("عرض الكل طلبات التقديم")
             .addStringOption((option) =>
                 option
                     .setName("status")
-                    .setDescription("Filter by status")
+                    .setDescription("تصفية بواسطة الحالة")
                     .addChoices(
                         { name: "Pending", value: "pending" },
                         { name: "Approved", value: "approved" },
@@ -71,16 +71,16 @@ export default {
                     ),
             )
             .addStringOption((option) =>
-                option.setName("role").setDescription("Filter by role ID"),
+                option.setName("role").setDescription("تصفية بواسطة الرتبة ID"),
             )
             .addUserOption((option) =>
-                option.setName("user").setDescription("Filter by user"),
+                option.setName("user").setDescription("تصفية بواسطة المستخدم"),
             )
             .addNumberOption((option) =>
                 option
                     .setName("limit")
                     .setDescription(
-                        "Maximum number of applications to show (default: 10)",
+                        "الأقصى رقم من طلبات التقديم إلى عرض (الافتراضي: 10)",
                     )
                     .setMinValue(1)
                     .setMaxValue(25),
@@ -89,11 +89,11 @@ export default {
     .addSubcommand((subcommand) =>
         subcommand
             .setName("dashboard")
-            .setDescription("Open the applications configuration dashboard")
+            .setDescription("فتح الـ طلبات التقديم الإعدادات لوحة التحكم")
             .addStringOption((option) =>
                 option
                     .setName("application")
-                    .setDescription("Select an application to configure")
+                    .setDescription("اختر  طلب التقديم إلى إعداد")
                     .setRequired(false)
                     .setAutocomplete(true),
             ),
@@ -142,51 +142,51 @@ async function handleSetup(interaction) {
 
     const modal = new ModalBuilder()
         .setCustomId('app_setup_modal')
-        .setTitle('Set Up New Application');
+        .setTitle('تعيين أعلى الجديد طلب التقديم');
 
     const roleSelect = new RoleSelectMenuBuilder()
         .setCustomId('role_id')
-        .setPlaceholder('Select the role users will apply for')
+        .setPlaceholder('اختر الـ الرتبة المستخدمون سيتم تقديم لـ')
         .setRequired(true);
 
     const roleLabel = new LabelBuilder()
-        .setLabel('Application Role')
-        .setDescription('The role that users will be applying for')
+        .setLabel('طلب التقديم الرتبة')
+        .setDescription('الـ الرتبة ذلك المستخدمون سيتم يكون applying لـ')
         .setRoleSelectMenuComponent(roleSelect);
 
     const appNameInput = new TextInputBuilder()
         .setCustomId('app_name')
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder('e.g., Moderator, Helper, Developer')
+        .setPlaceholder('e.g., المشرف, المساعد, المطور')
         .setMaxLength(50)
         .setMinLength(1)
         .setRequired(true);
 
     const appNameLabel = new LabelBuilder()
-        .setLabel('Application Name')
+        .setLabel('طلب التقديم الاسم')
         .setTextInputComponent(appNameInput);
 
     const q1Input = new TextInputBuilder()
         .setCustomId('app_question_1')
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder('Why do you want this role?')
+        .setPlaceholder('لماذا do أنت تريد هذا الرتبة?')
         .setMaxLength(100)
         .setMinLength(1)
         .setRequired(true);
 
     const q1Label = new LabelBuilder()
-        .setLabel('Question 1 (required)')
+        .setLabel('السؤال 1 (مطلوب)')
         .setTextInputComponent(q1Input);
 
     const q2Input = new TextInputBuilder()
         .setCustomId('app_question_2')
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder('What experience do you have?')
+        .setPlaceholder('ما التجربة do أنت لديهم?')
         .setMaxLength(100)
         .setRequired(false);
 
     const q2Label = new LabelBuilder()
-        .setLabel('Question 2 (optional)')
+        .setLabel('السؤال 2 (اختياري)')
         .setTextInputComponent(q2Input);
 
     const q3Input = new TextInputBuilder()
@@ -196,7 +196,7 @@ async function handleSetup(interaction) {
         .setRequired(false);
 
     const q3Label = new LabelBuilder()
-        .setLabel('Question 3 (optional)')
+        .setLabel('السؤال 3 (اختياري)')
         .setTextInputComponent(q3Input);
 
     modal.addLabelComponents(roleLabel, appNameLabel, q1Label, q2Label, q3Label);
@@ -287,8 +287,8 @@ async function handleReview(interaction) {
     }
 
     const appEmbed = createEmbed({
-        title: `Review Application`,
-        description: `**User:** <@${application.userId}>\n**Application:** ${application.roleName}\n**Application ID:** \`${appId}\``,
+        title: `مراجعة طلب التقديم`,
+        description: `**المستخدم:** <@${application.userId}>\n**طلب التقديم:** ${application.roleName}\n**طلب التقديم ID:** \`${appId}\``,
         color: 'info',
     });
 
@@ -305,7 +305,7 @@ async function handleReview(interaction) {
     const buttonRow = new ActionRowBuilder().addComponents(
         new ButtonBuilder()
             .setCustomId(`app_review_approve_${appId}`)
-            .setLabel('Approve')
+            .setLabel('موافقة')
             .setStyle(ButtonStyle.Success),
         new ButtonBuilder()
             .setCustomId(`app_review_deny_${appId}`)
@@ -340,9 +340,9 @@ async function handleReview(interaction) {
             new ActionRowBuilder().addComponents(
                 new TextInputBuilder()
                     .setCustomId('review_reason')
-                    .setLabel('Reason (optional)')
+                    .setLabel('السبب (اختياري)')
                     .setStyle(TextInputStyle.Paragraph)
-                    .setPlaceholder('Provide a reason for this decision...')
+                    .setPlaceholder('Provide  السبب لـ هذا decision...')
                     .setMaxLength(500)
                     .setRequired(false),
             ),
@@ -380,8 +380,8 @@ async function handleReview(interaction) {
                 const statusColor = getApplicationStatusColor(status);
                 const reviewStatus = getApplicationStatusPresentation(status);
                 const dmEmbed = createEmbed({
-                    title: `${reviewStatus.statusEmoji} Application ${reviewStatus.statusLabel}`,
-                    description: `Your application for **${application.roleName}** has been **${status}**\n` +
+                    title: `${reviewStatus.statusEmoji} طلب التقديم ${reviewStatus.statusLabel}`,
+                    description: `الخاص بك طلب التقديم لـ **${application.roleName}** لديه تم **${status}**\n` +
                         `**Note:** ${reason}\n\n` +
                         `Use \`/apply status id:${appId}\` to view details.`
                 }).setColor(statusColor);
@@ -467,8 +467,8 @@ async function handleReview(interaction) {
     collector.on('end', async (collected, reason) => {
         if (reason === 'time') {
             const timeoutEmbed = createEmbed({
-                title: 'Review Timeout',
-                description: 'The review buttons have timed out.',
+                title: 'مراجعة كتم مؤقت',
+                description: 'الـ مراجعة buttons لديهم timed خارج.',
                 color: 'warning',
             });
 
@@ -523,61 +523,5 @@ async function handleList(interaction) {
         
         if (applicationRoles.length > 0) {
             const embed = createEmbed({ 
-                title: "No Applications Found", 
-                description: "No submitted applications found matching the specified criteria.\n\nHowever, the following application roles are configured:" 
-            });
-
-            applicationRoles.forEach((appRole, index) => {
-                const role = interaction.guild.roles.cache.get(appRole.roleId);
-                embed.addFields({
-                    name: `${index + 1}. ${appRole.name}`,
-                    value: `**Role:** ${role ?`<@&${appRole.roleId}>`: 'Role not found'}\n**Available for applications:** Yes`,
-                    inline: false
-                });
-            });
-
-            embed.setFooter({
-                text: "Users can apply with /apply submit or see available roles with /apply list"
-            });
-
-            return InteractionHelper.safeEditReply(interaction, { embeds: [embed], flags: ["Ephemeral"] });
-        } else {
-            return await replyUserError(interaction, {
-                type: ErrorTypes.CONFIGURATION,
-                message: 'No applications found and no application roles configured.\n' +
-                    'Use `/app-admin roles add` to configure application roles first.'
-            });
-        }
-    }
-
-    applications = applications
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-        .slice(0, limit);
-
-    const embed = createEmbed({ title: "Submitted Applications", description: `Showing ${applications.length} applications.`, });
-
-    applications.forEach((app) => {
-        const statusView = getApplicationStatusPresentation(app?.status);
-        const roleName = app?.roleName || 'Unknown Role';
-        const username = app?.username || 'Unknown User';
-        const createdAt = app?.createdAt ? new Date(app.createdAt) : null;
-        const createdAtDisplay = createdAt && !Number.isNaN(createdAt.getTime())
-            ? createdAt.toLocaleString()
-            : 'Unknown date';
-
-        embed.addFields({
-            name: `${statusView.statusEmoji} ${roleName} - ${username}`,
-            value:
-                `**ID:** \`${app.id}\`\n` +
-                `**Status:** ${statusView.statusEmoji} ${statusView.statusLabel}\n` +
-                `**Date:** ${createdAtDisplay}`,
-            inline: true,
-        });
-    });
-
-    await InteractionHelper.safeEditReply(interaction, {
-        embeds: [embed],
-        flags: ["Ephemeral"],
-    });
-}
-
+                title: "لا طلبات التقديم تم العثور", 
+                description: "لا 
