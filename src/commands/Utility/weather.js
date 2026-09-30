@@ -9,7 +9,7 @@ const WEATHER_URL = "https://api.open-meteo.com/v1/forecast";
 export default {
     data: new SlashCommandBuilder()
         .setName("weather")
-        .setDescription("Get real-time weather information for a location")
+        .setDescription("الحصول على فوري الطقس المعلومات لـ  الموقع")
         .addStringOption((option) =>
             option
                 .setName("city")
@@ -72,7 +72,7 @@ export default {
 
         const condition = getWeatherDescription(weatherCode);
 
-        const embed = createEmbed({ title: `Weather in ${cityDisplay}, ${country}`, description: condition.description })
+        const embed = createEmbed({ title: `الطقس في ${cityDisplay}, ${country}`, description: condition.description })
             .addFields(
                 {
                     name: "Temperature",
@@ -107,17 +107,17 @@ export default {
 
 function getWeatherDescription(code) {
     if (code >= 0 && code <= 3) {
-        return { description: "Clear sky / Partly cloudy", emoji: "" };
+        return { description: "مسح السماء / Partly غائم", emoji: "" };
     } else if (code >= 45 && code <= 48) {
-        return { description: "Fog and Rime fog", emoji: "" };
+        return { description: "Fog و Rime fog", emoji: "" };
     } else if (code >= 51 && code <= 67) {
-        return { description: "Drizzle or Rain", emoji: "" };
+        return { description: "Drizzle أو المطر", emoji: "" };
     } else if (code >= 71 && code <= 75) {
-        return { description: "Snow fall", emoji: "" };
+        return { description: "الثلج تساقط", emoji: "" };
     } else if (code >= 80 && code <= 86) {
-        return { description: "Showers (Rain/Snow)", emoji: "" };
+        return { description: "Showers (المطر/الثلج)", emoji: "" };
     } else if (code >= 95 && code <= 99) {
         return { description: "Thunderstorm", emoji: "" };
     }
-    return { description: "Unknown conditions.", emoji: "" };
+    return { description: "غير معروف conditions.", emoji: "" };
 }
