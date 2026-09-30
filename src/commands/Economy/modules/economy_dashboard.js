@@ -1,3 +1,4 @@
+
 import {
     ActionRowBuilder,
     StringSelectMenuBuilder,
@@ -58,8 +59,8 @@ async function buildDashboardEmbed(guild, client) {
     const avgBalance = userCount > 0 ? Math.floor(totalInCirculation / userCount) : 0;
 
     return new EmbedBuilder()
-        .setTitle('💰 Economy Dashboard')
-        .setDescription(`Manage the economy system for **${guild.name}**.\nSelect an option below to perform an action.`)
+        .setTitle('💰 الاقتصاد لوحة التحكم')
+        .setDescription(`إدارة الـ الاقتصاد النظام لـ **${guild.name}**.\\nاختر  الخيار أدناه إلى تنفيذ  الإجراء.`)
         .setColor(getColor('economy'))
         .addFields(
             { name: '💰 Total in Circulation', value: `\`${currencySymbol}${totalInCirculation.toLocaleString()}\``, inline: true },
@@ -75,26 +76,26 @@ async function buildDashboardEmbed(guild, client) {
 function buildSelectMenu(guildId) {
     return new StringSelectMenuBuilder()
         .setCustomId(`economy_dashboard_${guildId}`)
-        .setPlaceholder('Select an action...')
+        .setPlaceholder('اختر  الإجراء...')
         .addOptions(
             new StringSelectMenuOptionBuilder()
-                .setLabel('Add Currency')
-                .setDescription('Add currency to a user\'s wallet or bank')
+                .setLabel('إضافة العملة')
+                .setDescription('إضافة العملة إلى  المستخدم\'s wallet or bank')
                 .setValue('add_currency')
                 .setEmoji('💰'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Remove Currency')
-                .setDescription('Remove currency from a user\'s wallet or bank')
+                .setLabel('إزالة العملة')
+                .setDescription('إزالة العملة من  المستخدم\'s wallet or bank')
                 .setValue('remove_currency')
                 .setEmoji('💸'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Change Currency Symbol')
-                .setDescription('Change the currency symbol (e.g., $, €, £)')
+                .setLabel('تغيير العملة الرمز')
+                .setDescription('تغيير الـ العملة الرمز (e.g., $, €, £)')
                 .setValue('change_currency')
                 .setEmoji('💱'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Change Currency Name')
-                .setDescription('Change the currency name (e.g., coins, credits)')
+                .setLabel('تغيير العملة الاسم')
+                .setDescription('تغيير الـ العملة الاسم (e.g., العملات, credits)')
                 .setValue('change_name')
                 .setEmoji('📝'),
         );
@@ -202,8 +203,8 @@ export default {
             collector.on('end', async (collected, reason) => {
                 if (reason === 'time') {
                     const timeoutEmbed = new EmbedBuilder()
-                        .setTitle('Dashboard Timed Out')
-                        .setDescription('This dashboard has been closed due to inactivity. Please run the command again to continue.')
+                        .setTitle('لوحة التحكم انتهت المهلة المهلة')
+                        .setDescription('تم إغلاق لوحة التحكم بسبب عدم النشاط. شغّل الأمر مرة أخرى للمتابعة.')
                         .setColor(getColor('error'));
                     
                     await InteractionHelper.safeEditReply(interaction, {
@@ -227,23 +228,23 @@ export default {
 async function handleAddCurrency(selectInteraction, rootInteraction, guild, client) {
     const modal = new ModalBuilder()
         .setCustomId(`economy_add_currency_${guild.id}`)
-        .setTitle('Add Currency');
+        .setTitle('إضافة العملة');
 
     const userSelect = new UserSelectMenuBuilder()
         .setCustomId('target_user')
-        .setPlaceholder('Select a user...')
+        .setPlaceholder('اختر  المستخدم...')
         .setMinValues(1)
         .setMaxValues(1)
         .setRequired(true);
 
     const userLabel = new LabelBuilder()
-        .setLabel('Target User')
-        .setDescription('User to add currency to')
+        .setLabel('المستهدف المستخدم')
+        .setDescription('المستخدم إلى إضافة العملة إلى')
         .setUserSelectMenuComponent(userSelect);
 
     const amountInput = new TextInputBuilder()
         .setCustomId('amount')
-        .setLabel('Amount to add')
+        .setLabel('المبلغ إلى إضافة')
         .setStyle(TextInputStyle.Short)
         .setPlaceholder('100')
         .setMinLength(1)
@@ -252,9 +253,9 @@ async function handleAddCurrency(selectInteraction, rootInteraction, guild, clie
 
     const typeInput = new TextInputBuilder()
         .setCustomId('type')
-        .setLabel('Type (wallet or bank)')
+        .setLabel('النوع (المحفظة أو البنك)')
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder('wallet')
+        .setPlaceholder('المحفظة')
         .setMinLength(1)
         .setMaxLength(5)
         .setRequired(true);
@@ -324,23 +325,23 @@ async function handleAddCurrency(selectInteraction, rootInteraction, guild, clie
 async function handleRemoveCurrency(selectInteraction, rootInteraction, guild, client) {
     const modal = new ModalBuilder()
         .setCustomId(`economy_remove_currency_${guild.id}`)
-        .setTitle('Remove Currency');
+        .setTitle('إزالة العملة');
 
     const userSelect = new UserSelectMenuBuilder()
         .setCustomId('target_user')
-        .setPlaceholder('Select a user...')
+        .setPlaceholder('اختر  المستخدم...')
         .setMinValues(1)
         .setMaxValues(1)
         .setRequired(true);
 
     const userLabel = new LabelBuilder()
-        .setLabel('Target User')
-        .setDescription('User to remove currency from')
+        .setLabel('المستهدف المستخدم')
+        .setDescription('المستخدم إلى إزالة العملة من')
         .setUserSelectMenuComponent(userSelect);
 
     const amountInput = new TextInputBuilder()
         .setCustomId('amount')
-        .setLabel('Amount to remove')
+        .setLabel('المبلغ إلى إزالة')
         .setStyle(TextInputStyle.Short)
         .setPlaceholder('100')
         .setMinLength(1)
@@ -349,9 +350,9 @@ async function handleRemoveCurrency(selectInteraction, rootInteraction, guild, c
 
     const typeInput = new TextInputBuilder()
         .setCustomId('type')
-        .setLabel('Type (wallet or bank)')
+        .setLabel('النوع (المحفظة أو البنك)')
         .setStyle(TextInputStyle.Short)
-        .setPlaceholder('wallet')
+        .setPlaceholder('المحفظة')
         .setMinLength(1)
         .setMaxLength(5)
         .setRequired(true);
@@ -421,11 +422,11 @@ async function handleRemoveCurrency(selectInteraction, rootInteraction, guild, c
 async function handleChangeCurrency(selectInteraction, rootInteraction, guild) {
     const modal = new ModalBuilder()
         .setCustomId(`economy_change_currency_${guild.id}`)
-        .setTitle('Change Currency Symbol');
+        .setTitle('تغيير العملة الرمز');
 
     const symbolInput = new TextInputBuilder()
         .setCustomId('currency_symbol')
-        .setLabel('New Currency Symbol')
+        .setLabel('الجديد العملة الرمز')
         .setStyle(TextInputStyle.Short)
         .setValue(BotConfig.economy.currency.symbol)
         .setPlaceholder('$')
@@ -475,14 +476,14 @@ async function handleChangeCurrency(selectInteraction, rootInteraction, guild) {
 async function handleChangeName(selectInteraction, rootInteraction, guild) {
     const modal = new ModalBuilder()
         .setCustomId(`economy_change_name_${guild.id}`)
-        .setTitle('Change Currency Name');
+        .setTitle('تغيير العملة الاسم');
 
     const nameInput = new TextInputBuilder()
         .setCustomId('currency_name')
-        .setLabel('New Currency Name')
+        .setLabel('الجديد العملة الاسم')
         .setStyle(TextInputStyle.Short)
         .setValue(BotConfig.economy.currency.name)
-        .setPlaceholder('coins')
+        .setPlaceholder('العملات')
         .setMinLength(1)
         .setMaxLength(20)
         .setRequired(true);
@@ -521,7 +522,4 @@ async function handleChangeName(selectInteraction, rootInteraction, guild) {
 
     logger.info(`[ECONOMY_DASHBOARD] Currency name changed`, {
         adminId: submitted.user.id,
-        oldName: BotConfig.economy.currency.name,
-        newName
-    });
-}
+        oldName: BotConfig.economy.currenc
