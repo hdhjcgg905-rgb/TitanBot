@@ -8,17 +8,17 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("shorten")
-        .setDescription("Shorten a URL using is.gd")
+        .setDescription("Shorten  URL باستخدام هو.gd")
         .addStringOption(option =>
             option
                 .setName("url")
-                .setDescription("The URL to shorten")
+                .setDescription("الـ URL إلى shorten")
                 .setRequired(true)
         )
         .addStringOption(option =>
             option
                 .setName("custom")
-                .setDescription("Custom URL ending (optional)")
+                .setDescription("مخصص URL ending (اختياري)")
                 .setRequired(false)
         )
         .setDMPermission(false),
