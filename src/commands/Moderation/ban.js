@@ -7,15 +7,15 @@ import { TitanBotError, ErrorTypes } from '../../utils/errorHandler.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("ban")
-        .setDescription("Ban a user from the server")
+        .setDescription("حظر  المستخدم من الـ السيرفر")
         .addUserOption((option) =>
             option
                 .setName("target")
-                .setDescription("The user to ban")
+                .setDescription("الـ المستخدم إلى حظر")
                 .setRequired(true),
         )
         .addStringOption((option) =>
-            option.setName("reason").setDescription("Reason for the ban"),
+            option.setName("reason").setDescription("السبب لـ الـ حظر"),
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
     category: "moderation",
