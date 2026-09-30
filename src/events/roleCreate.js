@@ -18,7 +18,7 @@ export default {
         guildId: role.guild.id,
         eventType: EVENT_TYPES.ROLE_CREATE,
         data: {
-          title: 'Role Created',
+          title: 'الرتبة تم الإنشاء',
           headline: `${role.toString()} was created`,
           lines,
         },
