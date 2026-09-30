@@ -15,8 +15,8 @@ export default {
         if (sortedBirthdays.length === 0) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
-                .setTitle('No Birthdays')
-                .setDescription('No birthdays have been set in this server yet.');
+                .setTitle('لا أعياد الميلاد')
+                .setDescription('لا أعياد الميلاد لديهم تم تعيين في هذا السيرفر بعد.');
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [embed]
             });
@@ -47,8 +47,8 @@ export default {
         if (displayIndex === 0) {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
-                .setTitle('No Birthdays')
-                .setDescription('No birthdays have been set by current server members.');
+                .setTitle('لا أعياد الميلاد')
+                .setDescription('لا أعياد الميلاد لديهم تم تعيين بواسطة الحالي السيرفر الأعضاء.');
             return await InteractionHelper.safeEditReply(interaction, {
                 embeds: [embed]
             });
@@ -58,7 +58,7 @@ export default {
 
         const embed = new EmbedBuilder()
             .setColor(0x00FF00)
-            .setTitle('Server Birthdays')
+            .setTitle('السيرفر أعياد الميلاد')
             .setDescription(`${birthdayList}\n\nTotal: ${displayIndex} birthday${displayIndex !== 1 ? 's' : ''}`);
 
         await InteractionHelper.safeEditReply(interaction, {
