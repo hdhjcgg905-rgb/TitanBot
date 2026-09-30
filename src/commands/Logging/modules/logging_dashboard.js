@@ -53,8 +53,8 @@ export async function buildLoggingDashboardView(interaction, client) {
   const { enabled: enabledCount, total } = countEnabledCategories(loggingStatus.enabledEvents, auditEnabled);
 
   const embed = new EmbedBuilder()
-    .setTitle('📝 Logging Dashboard')
-    .setDescription(`Manage server logging for **${interaction.guild.name}**. Use the menu below to configure channels, categories, and filters.`)
+    .setTitle('📝 السجلات لوحة التحكم')
+    .setDescription(`إدارة السيرفر السجلات لـ **${interaction.guild.name}**. استخدم الـ القائمة أدناه إلى إعداد القنوات, الفئات, و التصفية.`)
     .setColor(auditEnabled ? getColor('success') : getColor('warning'))
     .addFields(
       {
@@ -108,7 +108,7 @@ export async function buildLoggingCategoriesView(interaction, client) {
   }).join('\n');
 
   const embed = new EmbedBuilder()
-    .setTitle('📋 Event Categories')
+    .setTitle('📋 الحدث الفئات')
     .setDescription(
       auditEnabled
         ? 'Toggle which types of events are logged to your audit channel.'
@@ -136,8 +136,8 @@ export async function buildLoggingFilterView(interaction, client) {
     : '*No ignored channels*';
 
   const embed = new EmbedBuilder()
-    .setTitle('🔇 Log Ignore Filters')
-    .setDescription('Users and channels on this list will be skipped when sending audit logs.')
+    .setTitle('🔇 سجل تجاهل التصفية')
+    .setDescription('المستخدمون و القنوات في هذا عرض سيتم يكون skipped عندما إرسال التدقيق السجلات.')
     .setColor(getColor('info'))
     .addFields(
       { name: 'Ignored Users', value: userLines.slice(0, 1024), inline: false },
