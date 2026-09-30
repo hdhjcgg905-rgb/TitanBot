@@ -110,7 +110,7 @@ export default {
                 guildId: guild.id,
                 eventType: EVENT_TYPES.MEMBER_JOIN,
                 data: {
-                    title: 'User joined',
+                    title: 'المستخدم انضم',
                     lines: [
                         `**User:** ${user.toString()} (${user.displayName !== user.username ? `@${user.displayName}` : user.tag})`,
                         `**ID:** \`${user.id}\``,
