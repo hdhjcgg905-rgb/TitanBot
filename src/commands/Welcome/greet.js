@@ -8,12 +8,12 @@ export default {
     slashOnly: true,
     data: new SlashCommandBuilder()
         .setName('greet')
-        .setDescription('Manage welcome & goodbye settings')
+        .setDescription('إدارة إعدادات الترحيب والمغادرة')
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addSubcommand(subcommand =>
             subcommand
                 .setName('dashboard')
-                .setDescription('Open the welcome & goodbye configuration dashboard'),
+                .setDescription('فتح لوحة إعدادات الترحيب والمغادرة'),
         ),
 
     async execute(interaction, config, client) {
