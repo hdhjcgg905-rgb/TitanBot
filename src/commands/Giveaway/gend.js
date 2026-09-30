@@ -15,12 +15,12 @@ export default {
     data: new SlashCommandBuilder()
         .setName("gend")
         .setDescription(
-            "Ends an active giveaway immediately and picks the winner(s).",
+            "Ends  نشط السحب فورًا و picks الـ الفائز(s).",
         )
         .addStringOption((option) =>
             option
                 .setName("messageid")
-                .setDescription("The message ID of the giveaway to end.")
+                .setDescription("معرّف رسالة السحب الذي تريد إنهاءه.")
                 .setRequired(true),
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
@@ -121,7 +121,7 @@ export default {
         const newRow = createGiveawayButtons(true);
 
         await message.edit({
-            content: "🎉 **GIVEAWAY ENDED** 🎉",
+            content: "🎉 **السحب انتهى** 🎉",
             embeds: [newEmbed],
             components: [newRow],
         });
@@ -131,7 +131,7 @@ export default {
                 .map((id) => `<@${id}>`)
                 .join(",");
             const winnerPingMsg = await channel.send({
-                content: `🎉 CONGRATULATIONS ${winnerMentions}! You won the **${updatedGiveaway.prize}** giveaway! Please contact the host <@${updatedGiveaway.hostId}> to claim your prize.`,
+                content: `🎉 مبروك ${winnerMentions}! أنت فاز الـ **${updatedGiveaway.prize}** السحب! يرجى تواصل مع الـ المنظّم <@${updatedGiveaway.hostId}> إلى استلام الخاص بك الجائزة.`,
             });
             updatedGiveaway.winnerPingMessageId = winnerPingMsg.id;
             await saveGiveaway(interaction.client, interaction.guildId, updatedGiveaway);
@@ -144,7 +144,7 @@ export default {
                     guildId: interaction.guildId,
                     eventType: EVENT_TYPES.GIVEAWAY_WINNER,
                     data: {
-                        description: `Giveaway ended with ${winners.length} winner(s)`,
+                        description: `السحب انتهى مع ${winners.length} الفائز(s)`,
                         channelId: channel.id,
                         userId: interaction.user.id,
                         fields: [
@@ -171,7 +171,7 @@ export default {
             }
         } else {
             await channel.send({
-                content: `The giveaway for **${updatedGiveaway.prize}** has ended with no valid entries.`,
+                content: `الـ السحب لـ **${updatedGiveaway.prize}** لديه انتهى مع لا صالح المشاركات.`,
             });
             logger.info(`Giveaway ended with no winners: ${messageId}`);
         }
