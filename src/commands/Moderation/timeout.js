@@ -18,23 +18,23 @@ const durationChoices = [
 export default {
     data: new SlashCommandBuilder()
         .setName("timeout")
-        .setDescription("Timeout a user for a specific duration.")
+        .setDescription("كتم مؤقت  المستخدم لـ  محدد المدة.")
         .addUserOption((option) =>
             option
                 .setName("target")
-                .setDescription("User to timeout")
+                .setDescription("المستخدم إلى كتم مؤقت")
                 .setRequired(true),
         )
         .addIntegerOption(
             (option) =>
                 option
                     .setName("duration")
-                    .setDescription("Duration of the timeout")
+                    .setDescription("المدة من الـ كتم مؤقت")
                     .setRequired(true)
                     .addChoices(...durationChoices),
         )
         .addStringOption((option) =>
-            option.setName("reason").setDescription("Reason for the timeout"),
+            option.setName("reason").setDescription("السبب لـ الـ كتم مؤقت"),
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
     category: "moderation",
