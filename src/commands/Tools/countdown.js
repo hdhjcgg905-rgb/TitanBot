@@ -11,11 +11,11 @@ export { activeCountdowns };
 export default {
     data: new SlashCommandBuilder()
         .setName("countdown")
-        .setDescription("Start a countdown timer")
+        .setDescription("Start  عد تنازلي مؤقت")
         .addIntegerOption((option) =>
             option
                 .setName("minutes")
-                .setDescription("Number of minutes to count down (0-1440)")
+                .setDescription("الرقم من الدقائق إلى العدد أسفل (0-1440)")
                 .setMinValue(0)
                 .setMaxValue(1440)
                 .setRequired(false),
@@ -23,7 +23,7 @@ export default {
         .addIntegerOption((option) =>
             option
                 .setName("seconds")
-                .setDescription("Number of seconds to count down (0-59)")
+                .setDescription("الرقم من الثواني إلى العدد أسفل (0-59)")
                 .setMinValue(0)
                 .setMaxValue(59)
                 .setRequired(false),
@@ -31,7 +31,7 @@ export default {
         .addStringOption((option) =>
             option
                 .setName("title")
-                .setDescription("Optional title for the countdown")
+                .setDescription("Optional العنوان لـ الـ عد تنازلي")
                 .setRequired(false),
         ),
 
@@ -89,7 +89,7 @@ export default {
         startCountdown(countdownId, countdownData, activeCountdowns);
 
         await InteractionHelper.safeEditReply(interaction, {
-            content: "✅ Countdown started!",
+            content: "✅ عد تنازلي بدأ!",
             flags: MessageFlags.Ephemeral,
         });
     },
