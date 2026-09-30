@@ -14,8 +14,8 @@ export default {
         if (result.status === 'not_found') {
             const embed = new EmbedBuilder()
                 .setColor(0xFF0000)
-                .setTitle('No Birthday Found')
-                .setDescription('You don\'t have a birthday set to remove.');
+                .setTitle('لا أعياد الميلاد تم العثور')
+                .setDescription('أنت don\'t have a birthday set to remove.');
             await InteractionHelper.safeEditReply(interaction, {
                 embeds: [embed]
             });
@@ -24,8 +24,8 @@ export default {
 
         const embed = new EmbedBuilder()
             .setColor(0x00FF00)
-            .setTitle('Birthday Removed')
-            .setDescription('Your birthday has been successfully removed from the server.');
+            .setTitle('أعياد الميلاد تمت الإزالة')
+            .setDescription('الخاص بك عيد الميلاد لديه تم بنجاح تمت الإزالة من الـ السيرفر.');
         await InteractionHelper.safeEditReply(interaction, {
             embeds: [embed]
         });
