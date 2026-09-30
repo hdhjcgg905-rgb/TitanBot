@@ -9,11 +9,11 @@ import { replyUserError, ErrorTypes } from '../../utils/errorHandler.js';
 export default {
     data: new SlashCommandBuilder()
     .setName("purge")
-    .setDescription("Delete a specific amount of messages")
+    .setDescription("حذف  محدد المبلغ من الرسائل")
     .addIntegerOption((option) =>
       option
         .setName("amount")
-        .setDescription("Number of messages (1-100)")
+        .setDescription("الرقم من الرسائل (1-100)")
         .setRequired(true),
     )
 .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
