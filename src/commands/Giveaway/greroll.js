@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } from 'discord.js';
+'import { SlashCommandBuilder, PermissionFlagsBits, MessageFlags } from 'discord.js';
 import { errorEmbed, successEmbed } from '../../utils/embeds.js';
 import { logger } from '../../utils/logger.js';
 import { TitanBotError, ErrorTypes } from '../../utils/errorHandler.js';
@@ -14,11 +14,11 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("greroll")
-        .setDescription("Rerolls the winner(s) for an ended giveaway.")
+        .setDescription("إعادة اختيار الفائزين في سحب منتهٍ.")
         .addStringOption((option) =>
             option
                 .setName("messageid")
-                .setDescription("The message ID of the ended giveaway.")
+                .setDescription("معرّف رسالة السحب المنتهي.")
                 .setRequired(true),
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
@@ -155,11 +155,11 @@ export default {
                 : null;
             if (existingPingMsg) {
                 await existingPingMsg.edit({
-                    content: `🔄 **GIVEAWAY REROLL** 🔄 New winners for **${giveaway.prize}**: ${winnerMentions}!`,
+                    content: `🔄 **السحب إعادة السحب** 🔄 الجديد الفائزون لـ **${giveaway.prize}**: ${winnerMentions}!`,
                 });
             } else {
                 const newPingMsg = await channel.send({
-                    content: `🔄 **GIVEAWAY REROLL** 🔄 New winners for **${giveaway.prize}**: ${winnerMentions}!`,
+                    content: `🔄 **السحب إعادة السحب** 🔄 الجديد الفائزون لـ **${giveaway.prize}**: ${winnerMentions}!`,
                 });
                 updatedGiveaway.winnerPingMessageId = newPingMsg.id;
             }
@@ -172,7 +172,7 @@ export default {
                     guildId: interaction.guildId,
                     eventType: EVENT_TYPES.GIVEAWAY_REROLL,
                     data: {
-                        description: `Giveaway rerolled: ${giveaway.prize}`,
+                        description: `السحب أعيد السحب: ${giveaway.prize}`,
                         channelId: giveaway.channelId,
                         userId: interaction.user.id,
                         fields: [
@@ -219,7 +219,7 @@ export default {
         const newRow = createGiveawayButtons(true);
 
         await message.edit({
-            content: "🔄 **GIVEAWAY REROLLED** 🔄",
+            content: "🔄 **السحب أعيد السحب** 🔄",
             embeds: [newEmbed],
             components: [newRow],
         });
@@ -233,11 +233,11 @@ export default {
             : null;
         if (existingPingMsg) {
             await existingPingMsg.edit({
-                content: `🔄 **REROLL WINNERS** 🔄 CONGRATULATIONS ${winnerMentions}! You are the new winner(s) for the **${giveaway.prize}** giveaway! Please contact the host <@${giveaway.hostId}> to claim your prize.`,
+                content: `🔄 **إعادة السحب الفائزون** 🔄 مبروك ${winnerMentions}! أنت هم الـ الجديد الفائز(s) لـ الـ **${giveaway.prize}** السحب! يرجى تواصل مع الـ المنظّم <@${giveaway.hostId}> إلى استلام الخاص بك الجائزة.`,
             });
         } else {
             const newPingMsg = await channel.send({
-                content: `🔄 **REROLL WINNERS** 🔄 CONGRATULATIONS ${winnerMentions}! You are the new winner(s) for the **${giveaway.prize}** giveaway! Please contact the host <@${giveaway.hostId}> to claim your prize.`,
+                content: `🔄 **إعادة السحب الفائزون** 🔄 مبروك ${winnerMentions}! أنت هم الـ الجديد الفائز(s) لـ الـ **${giveaway.prize}** السحب! يرجى تواصل مع الـ المنظّم <@${giveaway.hostId}> إلى استلام الخاص بك الجائزة.`,
             });
             updatedGiveaway.winnerPingMessageId = newPingMsg.id;
         }
@@ -250,7 +250,7 @@ export default {
                 guildId: interaction.guildId,
                 eventType: EVENT_TYPES.GIVEAWAY_REROLL,
                 data: {
-                    description: `Giveaway rerolled: ${giveaway.prize}`,
+                    description: `السحب أعيد السحب: ${giveaway.prize}`,
                     channelId: giveaway.channelId,
                     userId: interaction.user.id,
                     fields: [
