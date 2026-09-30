@@ -8,10 +8,10 @@ import { replyUserError, ErrorTypes } from '../../utils/errorHandler.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('hexcolor')
-        .setDescription('Generate a random hex color with preview')
+        .setDescription('إنشاء  عشوائي سداسي عشري اللون مع معاينة')
         .addStringOption(option =>
             option.setName('color')
-                .setDescription('Specific hex color (e.g., #FF5733 or FF5733)')
+                .setDescription('محدد سداسي عشري اللون (e.g., #FF5733 أو FF5733)')
                 .setRequired(false)),
 
     async execute(interaction) {
