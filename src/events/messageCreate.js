@@ -76,7 +76,7 @@ async function handlePrefixCommand(message, client) {
     if (isMaintenanceMode() && !isBotOwner(message.author.id)) {
       await message.channel.send({
         embeds: [createEmbed({
-          title: 'Maintenance Mode',
+          title: 'الصيانة الوضع',
           description: getBotMessage('maintenanceMode'),
           color: 'warning',
         })],
@@ -87,7 +87,7 @@ async function handlePrefixCommand(message, client) {
     if (!isCommandCategoryEnabled(command.category)) {
       await message.channel.send({
         embeds: [createEmbed({
-          title: 'Feature Disabled',
+          title: 'الميزة معطّل',
           description: getBotMessage('commandDisabled'),
           color: 'error',
         })],
@@ -99,8 +99,8 @@ async function handlePrefixCommand(message, client) {
     if (!supportsPrefixExecution(command) || restriction.blocked) {
       if (restriction.blocked && restriction.reason) {
         const embed = createEmbed({
-          title: 'Slash Command Only',
-          description: `${restriction.reason}\nUse \`/${resolvedCommandName}\` instead.`,
+          title: 'شرطة مائلة الأمر فقط',
+          description: `${restriction.reason}\\nاستخدم \`/${resolvedCommandName}\` instead.`,
           color: 'info',
         });
         await message.channel.send({ embeds: [embed] }).catch(() => {});
@@ -110,8 +110,8 @@ async function handlePrefixCommand(message, client) {
 
     if (!(await isCommandEnabled(client, message.guild.id, resolvePrefixAccessKey(command.data, args), command.category))) {
       const embed = createEmbed({
-        title: 'Command Disabled',
-        description: 'This command has been disabled for this server.',
+        title: 'الأمر معطّل',
+        description: 'هذا الأمر لديه تم معطّل لـ هذا السيرفر.',
         color: 'error',
       });
       await message.channel.send({ embeds: [embed] }).catch(() => {});
@@ -130,8 +130,8 @@ async function handlePrefixCommand(message, client) {
     if (!abuseProtection.allowed) {
       const formattedCooldown = formatCooldownDuration(abuseProtection.remainingMs);
       const embed = createEmbed({
-        title: 'Command Cooldown',
-        description: `This command is on cooldown. Please wait ${formattedCooldown} before trying again.`,
+        title: 'الأمر فترة الانتظار',
+        description: `هذا الأمر هو في فترة الانتظار. يرجى انتظر ${formattedCooldown} قبل محاولة مرة أخرى.`,
         color: 'error',
       });
       await message.channel.send({ embeds: [embed] }).catch(() => {});
