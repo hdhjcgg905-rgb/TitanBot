@@ -7,7 +7,7 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('verify')
-        .setDescription('Verify yourself and gain access to the server'),
+        .setDescription('تحقق yourself و اكتساب الوصول إلى الـ السيرفر'),
 
     async execute(interaction, config, client) {
         const guild = interaction.guild;
