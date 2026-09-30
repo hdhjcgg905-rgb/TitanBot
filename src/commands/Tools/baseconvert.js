@@ -97,19 +97,19 @@ function formatBigIntToBase(value, baseKey) {
 export default {
     data: new SlashCommandBuilder()
         .setName('baseconvert')
-        .setDescription('Convert numbers between different bases')
+        .setDescription('تحويل أرقام بين مختلفة أساسات')
         .addStringOption(option =>
             option.setName('number')
-                .setDescription('The number to convert')
+                .setDescription('الـ رقم إلى تحويل')
                 .setRequired(true))
         .addStringOption(option =>
             option.setName('from')
-                .setDescription('Source base/format')
+                .setDescription('المصدر أساس/التنسيق')
                 .setRequired(true)
                 .addChoices(...BASE_NAMES))
         .addStringOption(option =>
             option.setName('to')
-                .setDescription('Target base/format (default: all)')
+                .setDescription('المستهدف أساس/التنسيق (الافتراضي: الكل)')
                 .setRequired(false)
                 .addChoices(...BASE_NAMES)),
 
