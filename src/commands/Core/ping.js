@@ -11,12 +11,12 @@ export default {
     async prefixExecute(interaction) {
         try {
             const startTime = Date.now();
-            const pingingMessage = await interaction.reply({ content: 'Pinging...' });
+            const pingingMessage = await interaction.reply({ content: 'جارٍ قياس الاستجابة...' });
 
             const latency = Date.now() - startTime;
             const apiLatency = Math.max(0, Math.round(interaction.client.ws.ping));
 
-            const embed = createEmbed({ title: 'Pong!', description: null }).addFields(
+            const embed = createEmbed({ title: 'بونغ!', description: null }).addFields(
                 { name: 'Bot Latency', value: `${latency}ms`, inline: true },
                 { name: 'API Latency', value: `${apiLatency}ms`, inline: true },
             );
@@ -26,7 +26,7 @@ export default {
             logger.error('Ping prefix command error:', error);
             if (!interaction.replied && !interaction._replyMessage) {
                 await interaction.channel.send({
-                    embeds: [createEmbed({ title: 'System Error', description: 'Could not determine latency at this time.', color: 'error' })],
+                    embeds: [createEmbed({ title: 'النظام خطأ', description: 'تعذر ليس تحديد زمن الاستجابة في هذا الوقت.', color: 'error' })],
                 }).catch(() => {});
             }
         }
@@ -48,7 +48,7 @@ export default {
 
         try {
             await InteractionHelper.safeEditReply(interaction, {
-                content: "Pinging...",
+                content: "جارٍ قياس الاستجابة...",
             });
 
             const startTime = interaction._commandStartTime || interaction.createdTimestamp;
@@ -57,7 +57,7 @@ export default {
             const apiLatency = Math.max(0, Math.round(interaction.client.ws.ping));
             logger.info(`execute - calculated latency: ${latency}ms, apiLatency: ${apiLatency}ms`);
 
-            const embed = createEmbed({ title: "Pong!", description: null }).addFields(
+            const embed = createEmbed({ title: "بونغ!", description: null }).addFields(
                 { name: "Bot Latency", value: `${latency}ms`, inline: true },
                 { name: "API Latency", value: `${apiLatency}ms`, inline: true },
             );
@@ -70,7 +70,7 @@ export default {
             logger.error('Ping command error:', error);
             try {
                 return await InteractionHelper.safeReply(interaction, {
-                    embeds: [createEmbed({ title: 'System Error', description: 'Could not determine latency at this time.', color: 'error' })],
+                    embeds: [createEmbed({ title: 'النظام خطأ', description: 'تعذر ليس تحديد زمن الاستجابة في هذا الوقت.', color: 'error' })],
                     flags: MessageFlags.Ephemeral,
                 });
             } catch (replyError) {
