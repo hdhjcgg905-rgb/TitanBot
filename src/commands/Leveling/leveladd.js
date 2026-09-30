@@ -9,17 +9,17 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
   data: new SlashCommandBuilder()
     .setName('leveladd')
-    .setDescription('Add levels to a user')
+    .setDescription('إضافة مستويات إلى مستخدم')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('The user to add levels to')
+        .setDescription('المستخدم الذي ستُضاف إليه المستويات')
         .setRequired(true)
     )
     .addIntegerOption((option) =>
       option
         .setName('levels')
-        .setDescription('Number of levels to add')
+        .setDescription('عدد المستويات المراد إضافتها')
         .setRequired(true)
         .setMinValue(1)
     )
@@ -43,7 +43,7 @@ export default {
         embeds: [
           new EmbedBuilder()
             .setColor('#f1c40f')
-            .setDescription('The leveling system is currently disabled on this server.')
+            .setDescription('نظام المستويات معطّل حاليًا في هذا السيرفر.')
         ],
         flags: MessageFlags.Ephemeral
       });
@@ -67,8 +67,8 @@ export default {
     await InteractionHelper.safeEditReply(interaction, {
       embeds: [
         createEmbed({
-          title: 'Levels Added',
-          description: `Successfully added ${levelsToAdd} levels to ${targetUser.tag}.\n**New Level:** ${userData.level}`,
+          title: 'تمت إضافة المستويات',
+          description: `تمت إضافة ${levelsToAdd} المستويات إلى ${targetUser.tag}.\n**المستوى الجديد:** ${userData.level}`,
           color: 'success'
         })
       ]
