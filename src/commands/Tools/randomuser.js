@@ -8,22 +8,22 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('randomuser')
-        .setDescription('Select a random user from the server')
+        .setDescription('اختر  عشوائي المستخدم من الـ السيرفر')
         .addRoleOption(option =>
             option.setName('role')
-                .setDescription('Limit selection to users with this role')
+                .setDescription('حد التحديد إلى المستخدمون مع هذا الرتبة')
                 .setRequired(false))
         .addBooleanOption(option =>
             option.setName('bots')
-                .setDescription('Include bots in the selection (default: false)')
+                .setDescription('تضمين البوتات في الـ التحديد (الافتراضي: خطأ)')
                 .setRequired(false))
         .addBooleanOption(option =>
             option.setName('online')
-                .setDescription('Only select from online users (default: false)')
+                .setDescription('فقط اختر من متصل المستخدمون (الافتراضي: خطأ)')
                 .setRequired(false))
         .addBooleanOption(option =>
             option.setName('mention')
-                .setDescription('Mention the selected user (default: false)')
+                .setDescription('Mention الـ selected المستخدم (الافتراضي: خطأ)')
                 .setRequired(false)),
 
     async execute(interaction) {
@@ -104,7 +104,7 @@ export default {
             .addComponents(
                 new ButtonBuilder()
                     .setCustomId(`randomuser_${interaction.user.id}_again`)
-                    .setLabel('🎲 Pick Another User')
+                    .setLabel('🎲 اختيار آخر المستخدم')
                     .setStyle(ButtonStyle.Primary)
             );
 
@@ -176,7 +176,7 @@ export default {
             } catch (error) {
                 logger.error('Button interaction error:', error);
                 await i.reply({
-                    content: 'An error occurred while selecting another user.',
+                    content: 'An خطأ حدث أثناء selecting آخر المستخدم.',
                     flags: ['Ephemeral']
                 });
             }
