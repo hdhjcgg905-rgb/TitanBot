@@ -84,7 +84,7 @@ export default {
                 guildId: guild.id,
                 eventType: EVENT_TYPES.MEMBER_LEAVE,
                 data: {
-                    title: 'User left',
+                    title: 'المستخدم اليسار',
                     lines: [
                         `**User:** ${user.toString()} (${user.tag})`,
                         `**ID:** \`${user.id}\``,
