@@ -231,7 +231,7 @@ userLimit: userLimit === 0 ? undefined : userLimit,
                 
                 try {
                     await member.send({
-                        content: `❌ Failed to create your temporary voice channel. Please contact a server administrator.`
+                        content: `❌ فشل إلى إنشاء الخاص بك المؤقتة الصوتية القناة. يرجى تواصل مع  السيرفر المسؤول.`
                     });
                 } catch (dmError) {
                     logger.debug(`Unable to send temporary channel failure DM to user ${member.id}:`, dmError);
