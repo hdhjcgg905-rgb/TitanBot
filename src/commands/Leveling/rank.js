@@ -11,7 +11,7 @@ export default {
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('The user to check the rank of')
+        .setDescription('المستخدم المطلوب عرض رتبته')
         .setRequired(false)
     )
     .setDMPermission(false),
@@ -26,7 +26,7 @@ export default {
         embeds: [
           new EmbedBuilder()
             .setColor('#f1c40f')
-            .setDescription('The leveling system is currently disabled on this server.')
+            .setDescription('نظام المستويات معطّل حاليًا في هذا السيرفر.')
         ],
         flags: MessageFlags.Ephemeral
       });
