@@ -6,7 +6,7 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('unixtime')
-        .setDescription('Get the current Unix timestamp'),
+        .setDescription('الحصول على الـ الحالي Unix timestamp'),
 
     async execute(interaction) {
         await InteractionHelper.safeExecute(
