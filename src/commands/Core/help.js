@@ -60,8 +60,8 @@ export async function createInitialHelpMenu(client) {
 
     const options = [
         {
-            label: "📋 All Commands",
-            description: "Browse every available command in a single list",
+            label: "📋 الكل Commands",
+            description: "تصفح كل متاحة الأمر في  واحد عرض",
             value: ALL_COMMANDS_ID,
         },
         ...categoryDirs.map((category) => {
@@ -69,7 +69,7 @@ export async function createInitialHelpMenu(client) {
             const icon = CATEGORY_ICONS[categoryName] || "🔍";
             return {
                 label: `${icon} ${categoryName}`,
-                description: `View commands in the ${categoryName} category`,
+                description: `عرض الأوامر في الـ ${categoryName} الفئة`,
                 value: category,
             };
         }),
@@ -77,8 +77,8 @@ export async function createInitialHelpMenu(client) {
 
     const botName = client?.user?.username || "Bot";
     const embed = createEmbed({
-        title: `📖 ${botName} Help`,
-        description: 'Set up your server, pick what to enable, then browse commands below.',
+        title: `📖 ${botName} المساعدة`,
+        description: 'تعيين أعلى الخاص بك السيرفر, اختيار ما إلى تفعيل, ثم تصفح الأوامر أدناه.',
         color: 'primary',
         thumbnail: client.user?.displayAvatarURL?.({ size: 1024 }),
         fields: [
@@ -114,11 +114,11 @@ export async function createInitialHelpMenu(client) {
 
     const bugReportButton = new ButtonBuilder()
         .setCustomId(BUG_REPORT_BUTTON_ID)
-        .setLabel("Report Bug")
+        .setLabel("بلاغ خطأ")
         .setStyle(ButtonStyle.Danger);
 
     const supportButton = new ButtonBuilder()
-        .setLabel("Support Server")
+        .setLabel("الدعم السيرفر")
         .setURL("https://discord.gg/QnWNz2dKCE")
         .setStyle(ButtonStyle.Link);
 
@@ -143,7 +143,7 @@ export default {
     slashOnly: true,
     data: new SlashCommandBuilder()
         .setName("help")
-        .setDescription("Displays the help menu with all available commands"),
+        .setDescription("عرض قائمة المساعدة التي تحتوي على جميع الأوامر المتاحة"),
 
     async execute(interaction, guildConfig, client) {
         
@@ -164,8 +164,8 @@ export default {
                 }
 
                 const closedEmbed = createEmbed({
-                    title: "Help menu closed",
-                    description: "Help menu has been closed, use /help again.",
+                    title: "تم إغلاق قائمة المساعدة",
+                    description: "المساعدة القائمة لديه تم مغلقة, استخدم /المساعدة مرة أخرى.",
                     color: "secondary",
                 });
 
