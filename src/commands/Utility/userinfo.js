@@ -5,11 +5,11 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
     .setName("userinfo")
-    .setDescription("Get detailed information about a user")
+    .setDescription("الحصول على مفصلة المعلومات عن  المستخدم")
     .addUserOption((option) =>
       option
         .setName("target")
-        .setDescription("The user to inspect (defaults to you)"),
+        .setDescription("الـ المستخدم إلى فحص (افتراضيًا إلى أنت)"),
     ),
 
   async execute(interaction) {
@@ -29,7 +29,7 @@ export default {
     const createdTimestamp = Math.floor(user.createdAt.getTime() / 1000);
     const joinedTimestamp = member?.joinedAt ? Math.floor(member.joinedAt.getTime() / 1000) : null;
 
-    const embed = createEmbed({ title: `User Info: ${user.username}` })
+    const embed = createEmbed({ title: `المستخدم معلومات: ${user.username}` })
       .setThumbnail(user.displayAvatarURL({ size: 256 }))
       .addFields(
         { name: "ID", value: user.id, inline: true },
