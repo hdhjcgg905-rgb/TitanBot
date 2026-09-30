@@ -7,9 +7,9 @@ export default {
     category: 'Music',
     data: new SlashCommandBuilder()
         .setName('queue')
-        .setDescription('Show the current music queue')
+        .setDescription('عرض قائمة الانتظار الموسيقية الحالية')
         .addIntegerOption((opt) =>
-            opt.setName('page').setDescription('Page number').setMinValue(1),
+            opt.setName('page').setDescription('رقم الصفحة').setMinValue(1),
         ),
 
     async execute(interaction, config, client) {
