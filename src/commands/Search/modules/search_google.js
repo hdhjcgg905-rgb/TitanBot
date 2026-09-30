@@ -8,7 +8,7 @@ export default {
         const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
 
         const embed = createEmbed({
-            title: 'Google Search',
+            title: 'Google البحث',
             description: `[Search for "${query}"](${searchUrl})`,
             color: 'info'
         })
