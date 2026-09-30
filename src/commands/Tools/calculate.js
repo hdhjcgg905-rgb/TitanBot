@@ -19,12 +19,12 @@ export { calculationContexts };
 export default {
     data: new SlashCommandBuilder()
         .setName("calculate")
-        .setDescription("Evaluate a mathematical expression")
+        .setDescription("Evaluate  رياضي تعبير")
         .addStringOption((option) =>
             option
                 .setName("expression")
                 .setDescription(
-                    "The mathematical expression to evaluate (e.g., 2+2*3, sin(45 deg), 16^0.5)",
+                    "الـ رياضي تعبير إلى evaluate (e.g., 2+2*3, sin(45 deg), 16^0.5)",
                 )
                 .setRequired(true),
         ),
@@ -138,7 +138,7 @@ export default {
                     .setStyle(ButtonStyle.Primary),
                 new ButtonBuilder()
                     .setCustomId(`calc_${interaction.id}_history`)
-                    .setLabel("History")
+                    .setLabel("السجل")
                     .setStyle(ButtonStyle.Secondary),
             );
 
@@ -178,7 +178,7 @@ export default {
 
                         if (userHistory.length === 0) {
                             await i.followUp({
-                                content: "No calculation history found.",
+                                content: "لا calculation history تم العثور.",
                                 flags: ["Ephemeral"],
                             });
                             return;
@@ -193,7 +193,7 @@ export default {
                             .join("\n\n");
 
                         await i.followUp({
-                            content: `📜 **Your Calculation History**\n\n${historyText}`,
+                            content: `📜 **الخاص بك Calculation السجل**\n\n${historyText}`,
                             flags: ["Ephemeral"],
                         });
                         return;
@@ -229,7 +229,7 @@ export default {
 
                         await i.showModal({
                             customId: `calc_modal:${operation}`,
-                            title: `Enter a number to ${operation}`,
+                            title: `أدخل  رقم إلى ${operation}`,
                             components: [
                                 {
                                     type: 1,
@@ -237,8 +237,8 @@ export default {
                                         {
                                             type: 4,
                                             customId: `operand:${contextKey}`,
-                                            label: `Number to ${operator} with ${formattedResult}`,
-                                            placeholder: "Enter a number...",
+                                            label: `الرقم إلى ${operator} مع ${formattedResult}`,
+                                            placeholder: "أدخل  رقم...",
                                             style: 1,
                                             required: true,
                                             maxLength: 50,
@@ -251,7 +251,7 @@ export default {
                         logger.error("Failed to show modal:", modalError);
                         if (!i.replied && !i.deferred) {
                             await i.reply({
-                                content: "Failed to open calculator. Please try again.",
+                                content: "فشل إلى فتح الحاسبة. يرجى حاول مرة أخرى.",
                                 flags: ["Ephemeral"],
                             }).catch(console.error);
                         }
@@ -262,7 +262,7 @@ export default {
                     logger.error("Button interaction error:", error);
                     if (!i.deferred && !i.replied) {
                         await i.followUp({
-                            content: "An error occurred while processing your request.",
+                            content: "An خطأ حدث أثناء المعالجة الخاص بك الطلب.",
                             flags: ["Ephemeral"],
                         }).catch(console.error);
                     }
@@ -277,7 +277,7 @@ export default {
                                 .setCustomId(
                                     `calc_${interaction.id}_expired`,
                                 )
-                                .setLabel("Calculator Expired")
+                                .setLabel("الحاسبة انتهت صلاحيتها")
                                 .setStyle(ButtonStyle.Secondary)
                                 .setDisabled(true),
                         );
@@ -286,7 +286,7 @@ export default {
                         .editReply({
                             components: [disabledRow],
                             content:
-                                "⏱️ This calculator has expired. Use the command again to perform more calculations.",
+                                "⏱️ هذا الحاسبة لديه انتهت صلاحيتها. استخدم الـ الأمر مرة أخرى إلى تنفيذ المزيد الحسابات.",
                         })
                         .catch(console.error);
                 } else {
