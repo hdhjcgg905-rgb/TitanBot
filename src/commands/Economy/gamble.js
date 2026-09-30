@@ -13,11 +13,11 @@ const GAMBLE_COOLDOWN = 5 * 60 * 1000;
 export default {
     data: new SlashCommandBuilder()
         .setName('gamble')
-        .setDescription('Gamble your money for a chance to win more')
+        .setDescription('المقامرة الخاص بك المال لـ  فرصة إلى فوز المزيد')
         .addIntegerOption(option =>
             option
                 .setName('amount')
-                .setDescription('Amount of cash to gamble')
+                .setDescription('المبلغ من النقد إلى المقامرة')
                 .setRequired(true)
                 .setMinValue(1)
         ),
