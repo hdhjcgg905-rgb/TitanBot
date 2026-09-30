@@ -21,7 +21,7 @@ export default {
         embeds: [
           new EmbedBuilder()
             .setColor('#f1c40f')
-            .setDescription('The leveling system is currently disabled on this server.')
+            .setDescription('نظام المستويات معطّل حاليًا في هذا السيرفر.')
         ],
         flags: MessageFlags.Ephemeral
       });
@@ -39,9 +39,9 @@ export default {
     }
 
     const embed = new EmbedBuilder()
-      .setTitle('Level Leaderboard')
+      .setTitle('قائمة متصدري المستويات')
       .setColor('#2ecc71')
-      .setDescription("Top 10 most active members in this server:")
+      .setDescription("أكثر 10 أعضاء نشاطًا في هذا السيرفر:")
       .setTimestamp();
 
     const leaderboardText = await Promise.all(
