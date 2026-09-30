@@ -8,7 +8,7 @@ export default {
     slashOnly: true,
     data: new SlashCommandBuilder()
         .setName('wipedata')
-        .setDescription('Delete all your personal data from the bot (irreversible)'),
+        .setDescription('حذف جميع بياناتك الشخصية من البوت (لا يمكن التراجع عن ذلك)'),
 
     async execute(interaction, guildConfig, client) {
         const warningMessage = 
