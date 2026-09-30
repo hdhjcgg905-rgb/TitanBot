@@ -1,32 +1,33 @@
 /**
- * Command category metadata for the command access manager.
+ * البيانات الوصفية لفئات الأوامر الخاصة بمدير الوصول للأوامر.
  */
 
 export const CATEGORY_ICONS = {
-  Birthday: '🎂',
-  Community: '👥',
-  Core: 'ℹ️',
-  Economy: '💰',
-  Fun: '🎮',
-  Giveaway: '🎉',
-  JoinToCreate: '🔌',
-  Leveling: '📊',
-  Logging: '📝',
-  Moderation: '🛡️',
-  Music: '🎵',
-  Reaction_roles: '🎭',
-  Search: '🔍',
-  ServerStats: '📈',
-  Ticket: '🎫',
-  Tools: '🛠️',
-  Utility: '🔧',
-  Verification: '✅',
-  Welcome: '👋',
+  Birthday: '🎂',        // أعياد الميلاد
+  Community: '👥',       // المجتمع
+  Core: 'ℹ️',            // الأساسية
+  Economy: '💰',         // الاقتصاد
+  Fun: '🎮',             // الترفيه
+  Giveaway: '🎉',        // المسابقات (القيف اواي)
+  JoinToCreate: '🔌',    // انضم لإنشاء قناة
+  Leveling: '📊',        // المستويات
+  Logging: '📝',         // السجلات (اللوق)
+  Moderation: '🛡️',      // الإشراف والحماية
+  Music: '🎵',          // الموسيقى
+  Reaction_roles: '🎭',  // الرتب بالتفاعل
+  Search: '🔍',         // البحث
+  ServerStats: '📈',     // إحصائيات السيرفر
+  Ticket: '🎫',          // التذاكر (الدعم الفني)
+  Tools: '🛠️',           // الأدوات
+  Utility: '🔧',         // الخدمات المساعدة
+  Verification: '✅',    // التحقق
+  Welcome: '👋',         // الترحيب
 };
 
-/** Commands that always stay available so admins can recover access. */
+/** الأوامر التي تبقى متاحة دائماً لتمكين المشرفين من استعادة الوصول. */
 export const PROTECTED_COMMANDS = new Set(['commands', 'configwizard']);
 
+// تحويل اسم الفئة إلى صيغة قياسية
 export function normalizeCategoryKey(category) {
   return String(category || '')
     .trim()
@@ -44,6 +45,7 @@ import { logger } from '../src/utils/logger.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
+// تحليل المعاملات والوسائط الممررة عبر السطر البرمجي
 function parseArgs(argv) {
   const args = {};
 
@@ -72,6 +74,7 @@ function parseArgs(argv) {
   return args;
 }
 
+// التأكد من توفر الأداة في النظام (PATH)
 function ensureCommand(command) {
   const result = spawnSync(command, ['--version'], {
     encoding: 'utf8',
@@ -80,10 +83,11 @@ function ensureCommand(command) {
   });
 
   if (result.status !== 0) {
-    throw new Error(`${command} is required but was not found in PATH.`);
+    throw new Error(`الأمر ${command} مطلوب ولكن لم يتم العثور عليه في مسار النظام PATH.`);
   }
 }
 
+// تحديد أحدث ملف نسخ احتياطي (.dump)
 async function resolveLatestBackup(backupDir) {
   const entries = await readdir(backupDir, { withFileTypes: true });
   const dumpFiles = entries
@@ -92,12 +96,13 @@ async function resolveLatestBackup(backupDir) {
     .sort((left, right) => right.localeCompare(left));
 
   if (dumpFiles.length === 0) {
-    throw new Error(`No .dump backup files found in ${backupDir}`);
+    throw new Error(`لم يتم العثور على أي ملفات نسخ احتياطي بلامتداد .dump في المجلد: ${backupDir}`);
   }
 
   return path.join(backupDir, dumpFiles[0]);
 }
 
+// تنفيذ أوامر النظام (Terminal Commands)
 function runCommand(command, args) {
   const result = spawnSync(command, args, {
     encoding: 'utf8',
@@ -106,21 +111,22 @@ function runCommand(command, args) {
   });
 
   if (result.status !== 0) {
-    throw new Error(`${command} failed: ${result.stderr || result.stdout || 'Unknown error'}`);
+    throw new Error(`فشل أمر ${command}: ${result.stderr || result.stdout || 'خطأ غير معروف'}`);
   }
 }
 
+// تشغيل عملية استعادة قاعدة البيانات
 async function run() {
   const args = parseArgs(process.argv.slice(2));
   const backupDir = path.resolve(args['backup-dir'] || process.env.BACKUP_DIR || path.join(process.cwd(), 'backups'));
   const targetUrl = args['target-url'] || process.env.POSTGRES_RESTORE_URL || process.env.POSTGRES_URL;
 
   if (!targetUrl) {
-    throw new Error('Missing target database URL. Set POSTGRES_RESTORE_URL or POSTGRES_URL.');
+    throw new Error('رابط قاعدة البيانات المستهدفة مفقود. يرجى ضبط POSTGRES_RESTORE_URL أو POSTGRES_URL.');
   }
 
   if (!args.confirm) {
-    throw new Error('Restore requires explicit confirmation. Re-run with --confirm.');
+    throw new Error('تتطلب استعادة قاعدة البيانات تأكيداً صريحاً. أعد التشغيل باستخدام الخيار --confirm.');
   }
 
   ensureCommand('pg_restore');
@@ -129,13 +135,14 @@ async function run() {
   const inputPath = args.input ? path.resolve(args.input) : await resolveLatestBackup(backupDir);
   const dropSchema = args['drop-schema'] === true || args['drop-schema'] === 'true';
 
-  logger.warn('Starting database restore', {
+  logger.warn('بدء استعادة قاعدة البيانات', {
     event: 'restore.start',
     inputPath,
     targetUrl,
     dropSchema
   });
 
+  // مسح الهيكل القديم وإعادة إنشائه إذا تم طلب ذلك
   if (dropSchema) {
     runCommand('psql', [
       '--dbname',
@@ -147,6 +154,7 @@ async function run() {
     ]);
   }
 
+  // تنفيذ استعادة قاعدة البيانات
   runCommand('pg_restore', [
     '--clean',
     '--if-exists',
@@ -157,7 +165,7 @@ async function run() {
     inputPath
   ]);
 
-  logger.info('Database restore completed', {
+  logger.info('تمت استعادة قاعدة البيانات بنجاح', {
     event: 'restore.completed',
     inputPath,
     targetUrl
@@ -165,13 +173,14 @@ async function run() {
 }
 
 run().catch((error) => {
-  logger.error('Restore command failed', {
+  logger.error('فشلت عملية استعادة قاعدة البيانات', {
     event: 'restore.failed',
     error: error.message
   });
   process.exit(1);
 });
 
+// الحصول على أيقونة الفئة
 export function getCategoryIcon(category) {
   return CATEGORY_ICONS[category] || CATEGORY_ICONS[formatCategoryName(category)] || '📁';
 }
