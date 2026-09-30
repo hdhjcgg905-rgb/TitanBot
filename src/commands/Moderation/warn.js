@@ -9,18 +9,18 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("warn")
-        .setDescription("Warn a user")
+        .setDescription("Warn  المستخدم")
         .addUserOption((o) =>
             o
                 .setName("target")
                 .setRequired(true)
-                .setDescription("User to warn"),
+                .setDescription("المستخدم إلى warn"),
         )
         .addStringOption((o) =>
             o
                 .setName("reason")
                 .setRequired(true)
-                .setDescription("Reason for the warning"),
+                .setDescription("السبب لـ الـ تحذير"),
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ModerateMembers),
     category: "moderation",
