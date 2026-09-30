@@ -8,22 +8,22 @@ import reportSetchannel from './modules/report_setchannel.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('report')
-        .setDescription('Report a user to server staff, or configure where reports are sent.')
+        .setDescription('الإبلاغ عن مستخدم لإدارة السيرفر أو إعداد قناة استقبال البلاغات.')
         .setDMPermission(false)
         .addSubcommand(subcommand =>
             subcommand
                 .setName('file')
-                .setDescription('Report a user to the server moderation team.')
+                .setDescription('الإبلاغ عن مستخدم إلى فريق إشراف السيرفر.')
                 .addUserOption(option =>
                     option
                         .setName('user')
-                        .setDescription('The user you want to report.')
+                        .setDescription('المستخدم الذي تريد الإبلاغ عنه.')
                         .setRequired(true),
                 )
                 .addStringOption(option =>
                     option
                         .setName('reason')
-                        .setDescription('The reason for the report (be detailed).')
+                        .setDescription('سبب البلاغ (يرجى ذكر التفاصيل).')
                         .setRequired(true)
                         .setMaxLength(500),
                 ),
@@ -31,11 +31,11 @@ export default {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('setchannel')
-                .setDescription('Set the channel where user reports are sent. (Manage Server required)')
+                .setDescription('تحديد القناة التي تُرسل إليها بلاغات المستخدمين. (يتطلب صلاحية إدارة السيرفر)')
                 .addChannelOption(option =>
                     option
                         .setName('channel')
-                        .setDescription('The text channel to receive reports.')
+                        .setDescription('القناة النصية التي ستستقبل البلاغات.')
                         .addChannelTypes(ChannelType.GuildText)
                         .setRequired(true),
                 ),
