@@ -9,16 +9,16 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("masskick")
-        .setDescription("Kick multiple users from the server at once")
+        .setDescription("طرد متعدد المستخدمون من الـ السيرفر في مرة واحدة")
         .addStringOption(option =>
             option
                 .setName("users")
-                .setDescription("User IDs or mentions to kick (separated by spaces or commas)")
+                .setDescription("المستخدم المعرّفات أو الإشارات إلى طرد (مفصولة بواسطة مسافات أو فواصل)")
                 .setRequired(true)
         )
         .addStringOption(option =>
             option.setName("reason")
-                .setDescription("Reason for the mass kick")
+                .setDescription("السبب لـ الـ جماعي طرد")
                 .setRequired(false)
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
