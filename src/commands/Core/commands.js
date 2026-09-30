@@ -48,22 +48,22 @@ async function ensureManageGuild(interaction) {
 export default {
   data: new SlashCommandBuilder()
     .setName('commands')
-    .setDescription('Enable or disable bot commands and categories for this server')
+    .setDescription('تفعيل أو تعطيل أوامر البوت وفئاته لهذا السيرفر')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .setDMPermission(false)
     .addSubcommand((subcommand) =>
       subcommand
         .setName('dashboard')
-        .setDescription('Open the interactive command access dashboard'),
+        .setDescription('فتح لوحة التحكم التفاعلية لصلاحيات الأوامر'),
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('disable')
-        .setDescription('Disable a command or entire category')
+        .setDescription('تعطيل أمر أو فئة كاملة')
         .addStringOption((option) =>
           option
             .setName('scope')
-            .setDescription('Disable a single command or a whole category')
+            .setDescription('تعطيل أمر واحد أو فئة كاملة')
             .setRequired(true)
             .addChoices(
               { name: 'Category', value: 'category' },
@@ -73,7 +73,7 @@ export default {
         .addStringOption((option) =>
           option
             .setName('target')
-            .setDescription('Category or command name')
+            .setDescription('اسم الفئة أو الأمر')
             .setRequired(true)
             .setAutocomplete(true),
         ),
@@ -81,11 +81,11 @@ export default {
     .addSubcommand((subcommand) =>
       subcommand
         .setName('enable')
-        .setDescription('Enable a command or entire category')
+        .setDescription('تفعيل أمر أو فئة كاملة')
         .addStringOption((option) =>
           option
             .setName('scope')
-            .setDescription('Enable a single command or a whole category')
+            .setDescription('تفعيل  واحد الأمر أو  كاملة الفئة')
             .setRequired(true)
             .addChoices(
               { name: 'Category', value: 'category' },
@@ -95,7 +95,7 @@ export default {
         .addStringOption((option) =>
           option
             .setName('target')
-            .setDescription('Category or command name')
+            .setDescription('اسم الفئة أو الأمر')
             .setRequired(true)
             .setAutocomplete(true),
         ),
