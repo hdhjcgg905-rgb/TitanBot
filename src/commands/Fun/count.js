@@ -17,47 +17,47 @@ import { replyUserError, ErrorTypes } from '../../utils/errorHandler.js';
 export default {
   data: new SlashCommandBuilder()
     .setName('count')
-    .setDescription('Manage the server counting game')
+    .setDescription('إدارة لعبة العد في السيرفر')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .setDMPermission(false)
     .addSubcommand((subcommand) =>
       subcommand
         .setName('setup')
-        .setDescription('Start a counting game in a text channel')
+        .setDescription('بدء لعبة عد في قناة نصية')
         .addChannelOption((option) =>
           option
             .setName('channel')
-            .setDescription('The channel where counting will take place')
+            .setDescription('القناة التي ستتم فيها لعبة العد')
             .setRequired(true)
             .addChannelTypes(ChannelType.GuildText),
         )
         .addStringOption((option) =>
           option
             .setName('system')
-            .setDescription('The counting system to use')
+            .setDescription('نظام العد المطلوب استخدامه')
             .setRequired(true)
             .addChoices(...getCountingSystemChoices()),
         ),
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('disable').setDescription('Disable the counting game for this server'),
+      subcommand.setName('disable').setDescription('تعطيل لعبة العد لهذا السيرفر'),
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('status').setDescription('View current counting game status'),
+      subcommand.setName('status').setDescription('عرض حالة لعبة العد الحالية'),
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName('reset')
-        .setDescription('Reset the current counting sequence')
+        .setDescription('إعادة ضبط تسلسل العد الحالي')
         .addIntegerOption((option) =>
           option
             .setName('start')
-            .setDescription('The number to start at after reset')
+            .setDescription('الرقم الذي سيبدأ منه العد بعد إعادة الضبط')
             .setMinValue(1),
         ),
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName('leaderboard').setDescription('Show the counting game leaderboard'),
+      subcommand.setName('leaderboard').setDescription('عرض قائمة متصدري لعبة العد'),
     ),
   category: 'Fun',
 
@@ -126,8 +126,8 @@ export default {
         return await InteractionHelper.safeEditReply(interaction, {
           embeds: [
             createEmbed({
-              title: 'Counting Game Status',
-              description: 'Overview of the currently configured counting game.',
+              title: 'حالة لعبة العد',
+              description: 'نظرة عامة على لعبة العد المُعدة حاليًا.',
               fields,
               color: 'primary',
             }),
@@ -159,7 +159,7 @@ export default {
         return await InteractionHelper.safeEditReply(interaction, {
           embeds: [
             createEmbed({
-              title: 'Counting Game Leaderboard',
+              title: 'قائمة متصدري لعبة العد',
               description: leaderboard.length > 0 ? leaderboard.join('\n') : 'No counts have been recorded yet.',
               color: 'primary',
             }),
