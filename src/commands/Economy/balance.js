@@ -12,7 +12,7 @@ export default {
         .addUserOption(option =>
             option
                 .setName('user')
-                .setDescription('User to check balance for')
+                .setDescription('المستخدم إلى تحقق الرصيد لـ')
                 .setRequired(false)
         ),
 
@@ -56,7 +56,7 @@ export default {
 
             const embed = createEmbed({
                 title: `${targetUser.username}'s Balance`,
-                description: `Here is the current financial status for ${targetUser.username}.`,
+                description: `هنا هو الـ الحالي المالي الحالة لـ ${targetUser.username}.`,
             })
                 .addFields(
                     {
