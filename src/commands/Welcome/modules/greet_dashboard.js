@@ -59,9 +59,9 @@ function buildDashboardEmbed(cfg, guild) {
     const goodbyePreview = `\`${rawGoodbye.length > 55 ? rawGoodbye.substring(0, 55) + '…' : rawGoodbye}\``;
 
     return new EmbedBuilder()
-        .setTitle('👋 Greet System Dashboard')
+        .setTitle('👋 Greet النظام لوحة التحكم')
         .setDescription(
-            `Manage welcome & goodbye settings for **${guild.name}**.\nUse the toggles to enable/disable each side, then select an option to edit.`,
+            `إدارة إعدادات الترحيب والمغادرة لـ **${guild.name}**.\\nاستخدم الـ toggles إلى تفعيل/تعطيل each جانب, ثم اختر  الخيار إلى تعديل.`,
         )
         .setColor(getColor('info'))
         .addFields(
@@ -81,36 +81,36 @@ function buildDashboardEmbed(cfg, guild) {
 function buildSelectMenu(guildId) {
     return new StringSelectMenuBuilder()
         .setCustomId(`greet_cfg_${guildId}`)
-        .setPlaceholder('Select a setting to configure...')
+        .setPlaceholder('اختر  الإعداد إلى إعداد...')
         .addOptions(
             new StringSelectMenuOptionBuilder()
-                .setLabel('Welcome Channel')
-                .setDescription('Set the channel where welcome messages are sent')
+                .setLabel('الترحيب القناة')
+                .setDescription('تعيين الـ القناة حيث الترحيب الرسائل هم أُرسل')
                 .setValue('welcome_channel')
                 .setEmoji('🟢'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Welcome Message')
-                .setDescription('Edit the text shown when a member joins')
+                .setLabel('الترحيب الرسالة')
+                .setDescription('تعديل الـ نص المعروض عندما  العضو joins')
                 .setValue('welcome_message')
                 .setEmoji('💬'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Welcome Image')
-                .setDescription('Set the image for welcome messages')
+                .setLabel('الترحيب الصورة')
+                .setDescription('تعيين الـ الصورة لـ الترحيب الرسائل')
                 .setValue('welcome_image')
                 .setEmoji('🖼️'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Goodbye Channel')
-                .setDescription('Set the channel where goodbye messages are sent')
+                .setLabel('المغادرة القناة')
+                .setDescription('تعيين الـ القناة حيث المغادرة الرسائل هم أُرسل')
                 .setValue('goodbye_channel')
                 .setEmoji('🔴'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Goodbye Message')
-                .setDescription('Edit the text shown when a member leaves')
+                .setLabel('المغادرة الرسالة')
+                .setDescription('تعديل الـ نص المعروض عندما  العضو leaves')
                 .setValue('goodbye_message')
                 .setEmoji('💬'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Goodbye Image')
-                .setDescription('Set the image for goodbye messages')
+                .setLabel('المغادرة الصورة')
+                .setDescription('تعيين الـ الصورة لـ المغادرة الرسائل')
                 .setValue('goodbye_image')
                 .setEmoji('🖼️'),
         );
@@ -126,13 +126,13 @@ function buildButtonRow(cfg, guildId, disabled = false) {
         new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId(`greet_cfg_toggle_welcome_${guildId}`)
-                .setLabel('Welcome')
+                .setLabel('الترحيب')
                 .setStyle(welcomeOn ? ButtonStyle.Success : ButtonStyle.Danger)
                 .setEmoji('🟢')
                 .setDisabled(disabled),
             new ButtonBuilder()
                 .setCustomId(`greet_cfg_toggle_goodbye_${guildId}`)
-                .setLabel('Goodbye')
+                .setLabel('المغادرة')
                 .setStyle(goodbyeOn ? ButtonStyle.Success : ButtonStyle.Danger)
                 .setEmoji('🔴')
                 .setDisabled(disabled),
@@ -140,13 +140,13 @@ function buildButtonRow(cfg, guildId, disabled = false) {
         new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId(`greet_cfg_ping_welcome_${guildId}`)
-                .setLabel('Ping Welcome')
+                .setLabel('إشارة الترحيب')
                 .setStyle(welcomePingOn ? ButtonStyle.Primary : ButtonStyle.Secondary)
                 .setEmoji('🔔')
                 .setDisabled(disabled),
             new ButtonBuilder()
                 .setCustomId(`greet_cfg_ping_goodbye_${guildId}`)
-                .setLabel('Ping Goodbye')
+                .setLabel('إشارة المغادرة')
                 .setStyle(goodbyePingOn ? ButtonStyle.Primary : ButtonStyle.Secondary)
                 .setEmoji('🔔')
                 .setDisabled(disabled),
@@ -330,8 +330,8 @@ export default {
                         await InteractionHelper.safeEditReply(interaction, {
                             embeds: [
                                 new EmbedBuilder()
-                                    .setTitle('Dashboard Timed Out')
-                                    .setDescription('This dashboard has been closed due to inactivity. Please run the command again to continue.')
+                                    .setTitle('لوحة التحكم انتهت المهلة المهلة')
+                                    .setDescription('تم إغلاق لوحة التحكم بسبب عدم النشاط. شغّل الأمر مرة أخرى للمتابعة.')
                                     .setColor(getColor('error'))
                             ],
                             components: [],
@@ -360,16 +360,16 @@ async function handleWelcomeChannel(selectInteraction, rootInteraction, cfg, gui
 
     const channelSelect = new ChannelSelectMenuBuilder()
         .setCustomId('greet_cfg_welcome_channel')
-        .setPlaceholder('Select a text channel...')
+        .setPlaceholder('اختر  نص القناة...')
         .addChannelTypes(ChannelType.GuildText)
         .setMaxValues(1);
 
     await sendEphemeralFollowUp(selectInteraction, {
         embeds: [
             new EmbedBuilder()
-                .setTitle('🟢 Welcome Channel')
+                .setTitle('🟢 الترحيب القناة')
                 .setDescription(
-                    `**Current:** ${cfg.channelId ?`<#${cfg.channelId}>`: '`Not set`'}\n\nSelect the channel where welcome messages will be sent.`,
+                    `**الحالي:** ${cfg.channelId ?`<#${cfg.channelId}>`: '`Not set`'}\n\nSelect the channel where welcome messages will be sent.`,
                 )
                 .setColor(getColor('info')),
         ],
@@ -421,12 +421,12 @@ async function handleWelcomeChannel(selectInteraction, rootInteraction, cfg, gui
 async function handleWelcomeMessage(selectInteraction, rootInteraction, cfg, guildId, client) {
     const modal = new ModalBuilder()
         .setCustomId('greet_cfg_welcome_message')
-        .setTitle('Edit Welcome Message')
+        .setTitle('تعديل الترحيب الرسالة')
         .addComponents(
             new ActionRowBuilder().addComponents(
                 new TextInputBuilder()
                     .setCustomId('message_input')
-                    .setLabel('Message (variables: {user}, {server}, etc)')
+                    .setLabel('الرسالة (المتغيرات: {user}, {server}, إلخ)')
                     .setStyle(TextInputStyle.Paragraph)
                     .setValue(cfg.welcomeMessage || 'Welcome {user} to {server}!')
                     .setMaxLength(2000)
@@ -465,307 +465,4 @@ async function handleWelcomeMessage(selectInteraction, rootInteraction, cfg, gui
 async function handleWelcomeImage(selectInteraction, rootInteraction, cfg, guildId, client) {
     const modal = new ModalBuilder()
         .setCustomId('greet_cfg_welcome_image')
-        .setTitle('Set Welcome Image');
-
-    const imageHint = new TextDisplayBuilder()
-        .setContent('Provide a direct image URL **or** upload a file below. If both are given, the uploaded file takes priority. Leave the URL blank and skip the upload to remove the image.');
-
-    const urlLabel = new LabelBuilder()
-        .setLabel('Image URL (optional)')
-        .setTextInputComponent(
-            new TextInputBuilder()
-                .setCustomId('image_input')
-                .setPlaceholder('https://example.com/welcome.png')
-                .setStyle(TextInputStyle.Short)
-                .setValue(cfg.welcomeImage || '')
-                .setRequired(false),
-        );
-
-    const uploadLabel = new LabelBuilder()
-        .setLabel('Or upload an image file (optional)')
-        .setFileUploadComponent(
-            new FileUploadBuilder()
-                .setCustomId('image_upload')
-                .setRequired(false),
-        );
-
-    modal
-        .addTextDisplayComponents(imageHint)
-        .addLabelComponents(urlLabel, uploadLabel);
-
-    try {
-        await selectInteraction.showModal(modal);
-    } catch {
-        return;
-    }
-
-    const submitted = await selectInteraction
-        .awaitModalSubmit({
-            filter: i =>
-                i.customId === 'greet_cfg_welcome_image' && i.user.id === selectInteraction.user.id,
-            time: 120_000,
-        })
-        .catch(() => null);
-
-    if (!submitted) return;
-
-    const uploadedFiles = submitted.fields.getUploadedFiles('image_upload');
-    let imageUrl = uploadedFiles?.at(0)?.url ?? submitted.fields.getTextInputValue('image_input').trim();
-
-    if (imageUrl) {
-        try {
-            new URL(imageUrl);
-            if (!['http:', 'https:'].includes(new URL(imageUrl).protocol)) {
-                await replyUserError(submitted, { type: ErrorTypes.VALIDATION, message: 'Image URL must start with `http://` or `https://`.' });
-                return;
-            }
-        } catch {
-            await replyUserError(submitted, { type: ErrorTypes.VALIDATION, message: 'Please provide a valid image URL.' });
-            return;
-        }
-    }
-
-    cfg.welcomeImage = imageUrl || null;
-    await saveWelcomeConfig(client, guildId, cfg);
-
-    await submitted.reply({
-        embeds: [successEmbed('Welcome Image Updated', `Image ${imageUrl ? 'updated' : 'removed'} successfully.`)],
-        flags: MessageFlags.Ephemeral,
-    });
-
-    await refreshDashboard(rootInteraction, cfg, guildId);
-}
-
-async function handleWelcomePing(selectInteraction, rootInteraction, cfg, guildId, client) {
-    if (!await deferComponent(selectInteraction)) {
-        return;
-    }
-
-    cfg.welcomePing = !cfg.welcomePing;
-    await saveWelcomeConfig(client, guildId, cfg);
-
-    await sendEphemeralFollowUp(selectInteraction, {
-        embeds: [
-            successEmbed(
-                '✅ Welcome Ping Updated',
-                `Joining users will${cfg.welcomePing ? '' : ' **not**'} be pinged in the welcome message.`,
-            ),
-        ],
-    });
-
-    await refreshDashboard(rootInteraction, cfg, guildId);
-}
-
-async function handleGoodbyeChannel(selectInteraction, rootInteraction, cfg, guildId, client) {
-    if (!await deferComponent(selectInteraction)) {
-        return;
-    }
-
-    const channelSelect = new ChannelSelectMenuBuilder()
-        .setCustomId('greet_cfg_goodbye_channel')
-        .setPlaceholder('Select a text channel...')
-        .addChannelTypes(ChannelType.GuildText)
-        .setMaxValues(1);
-
-    await sendEphemeralFollowUp(selectInteraction, {
-        embeds: [
-            new EmbedBuilder()
-                .setTitle('🔴 Goodbye Channel')
-                .setDescription(
-                    `**Current:** ${cfg.goodbyeChannelId ?`<#${cfg.goodbyeChannelId}>`: '`Not set`'}\n\nSelect the channel where goodbye messages will be sent.`,
-                )
-                .setColor(getColor('info')),
-        ],
-        components: [new ActionRowBuilder().addComponents(channelSelect)],
-    });
-
-    const chanCollector = rootInteraction.channel.createMessageComponentCollector({
-        componentType: ComponentType.ChannelSelect,
-        filter: i =>
-            i.user.id === selectInteraction.user.id && i.customId === 'greet_cfg_goodbye_channel',
-        time: 60_000,
-        max: 1,
-    });
-
-    chanCollector.on('collect', async chanInteraction => {
-        if (!await deferComponent(chanInteraction)) {
-            return;
-        }
-        const channel = chanInteraction.channels.first();
-
-        if (!botHasPermission(channel, ['ViewChannel', 'SendMessages', 'EmbedLinks'])) {
-            await replyUserError(chanInteraction, {
-                type: ErrorTypes.PERMISSION,
-                message: `I need **View Channel**, **Send Messages**, and **Embed Links** in ${channel}.`,
-            });
-            return;
-        }
-
-        cfg.goodbyeChannelId = channel.id;
-        await saveWelcomeConfig(client, guildId, cfg);
-
-        await sendEphemeralFollowUp(chanInteraction, {
-            embeds: [successEmbed('Channel Updated', `Goodbye messages will now be sent in ${channel}.`)],
-        });
-
-        await refreshDashboard(rootInteraction, cfg, guildId);
-    });
-
-    chanCollector.on('end', (collected, reason) => {
-        if (reason === 'time' && collected.size === 0) {
-            replyUserError(selectInteraction, {
-                type: ErrorTypes.RATE_LIMIT,
-                message: 'No channel was selected. The setting was not changed.',
-            }).catch(() => {});
-        }
-    });
-}
-
-async function handleGoodbyeMessage(selectInteraction, rootInteraction, cfg, guildId, client) {
-    const modal = new ModalBuilder()
-        .setCustomId('greet_cfg_goodbye_message')
-        .setTitle('Edit Goodbye Message')
-        .addComponents(
-            new ActionRowBuilder().addComponents(
-                new TextInputBuilder()
-                    .setCustomId('message_input')
-                    .setLabel('Message (variables: {user}, {server}, etc)')
-                    .setStyle(TextInputStyle.Paragraph)
-                    .setValue(cfg.leaveMessage || '{user.tag} has left the server.')
-                    .setMaxLength(2000)
-                    .setMinLength(1)
-                    .setRequired(true),
-            ),
-        );
-
-    try {
-        await selectInteraction.showModal(modal);
-    } catch {
-        return;
-    }
-
-    const submitted = await selectInteraction
-        .awaitModalSubmit({
-            filter: i =>
-                i.customId === 'greet_cfg_goodbye_message' && i.user.id === selectInteraction.user.id,
-            time: 120_000,
-        })
-        .catch(() => null);
-
-    if (!submitted) return;
-
-    cfg.leaveMessage = submitted.fields.getTextInputValue('message_input').trim();
-    await saveWelcomeConfig(client, guildId, cfg);
-
-    await submitted.reply({
-        embeds: [successEmbed('Goodbye Message Updated', 'The goodbye message has been saved.')],
-        flags: MessageFlags.Ephemeral,
-    });
-
-    await refreshDashboard(rootInteraction, cfg, guildId);
-}
-
-async function handleGoodbyeImage(selectInteraction, rootInteraction, cfg, guildId, client) {
-    const modal = new ModalBuilder()
-        .setCustomId('greet_cfg_goodbye_image')
-        .setTitle('Set Goodbye Image');
-
-    const imageHint = new TextDisplayBuilder()
-        .setContent('Provide a direct image URL **or** upload a file below. If both are given, the uploaded file takes priority. Leave the URL blank and skip the upload to remove the image.');
-
-    const urlLabel = new LabelBuilder()
-        .setLabel('Image URL (optional)')
-        .setTextInputComponent(
-            new TextInputBuilder()
-                .setCustomId('image_input')
-                .setPlaceholder('https://example.com/goodbye.png')
-                .setStyle(TextInputStyle.Short)
-                .setValue(
-                    typeof cfg.leaveEmbed?.image === 'string'
-                        ? cfg.leaveEmbed.image
-                        : cfg.leaveEmbed?.image?.url || ''
-                )
-                .setRequired(false),
-        );
-
-    const uploadLabel = new LabelBuilder()
-        .setLabel('Or upload an image file (optional)')
-        .setFileUploadComponent(
-            new FileUploadBuilder()
-                .setCustomId('image_upload')
-                .setRequired(false),
-        );
-
-    modal
-        .addTextDisplayComponents(imageHint)
-        .addLabelComponents(urlLabel, uploadLabel);
-
-    try {
-        await selectInteraction.showModal(modal);
-    } catch {
-        return;
-    }
-
-    const submitted = await selectInteraction
-        .awaitModalSubmit({
-            filter: i =>
-                i.customId === 'greet_cfg_goodbye_image' && i.user.id === selectInteraction.user.id,
-            time: 120_000,
-        })
-        .catch(() => null);
-
-    if (!submitted) return;
-
-    const uploadedFiles = submitted.fields.getUploadedFiles('image_upload');
-    let imageUrl = uploadedFiles?.at(0)?.url ?? submitted.fields.getTextInputValue('image_input').trim();
-
-    if (imageUrl) {
-        try {
-            new URL(imageUrl);
-            if (!['http:', 'https:'].includes(new URL(imageUrl).protocol)) {
-                await replyUserError(submitted, { type: ErrorTypes.VALIDATION, message: 'Image URL must start with `http://` or `https://`.' });
-                return;
-            }
-        } catch {
-            await replyUserError(submitted, { type: ErrorTypes.VALIDATION, message: 'Please provide a valid image URL.' });
-            return;
-        }
-    }
-
-    const nextLeaveEmbed = { ...(cfg.leaveEmbed || {}) };
-    if (imageUrl) {
-        nextLeaveEmbed.image = imageUrl;
-    } else {
-        delete nextLeaveEmbed.image;
-    }
-
-    cfg.leaveEmbed = nextLeaveEmbed;
-    await saveWelcomeConfig(client, guildId, cfg);
-
-    await submitted.reply({
-        embeds: [successEmbed('Goodbye Image Updated', `Image ${imageUrl ? 'updated' : 'removed'} successfully.`)],
-        flags: MessageFlags.Ephemeral,
-    });
-
-    await refreshDashboard(rootInteraction, cfg, guildId);
-}
-
-async function handleGoodbyePing(selectInteraction, rootInteraction, cfg, guildId, client) {
-    if (!await deferComponent(selectInteraction)) {
-        return;
-    }
-
-    cfg.goodbyePing = !cfg.goodbyePing;
-    await saveWelcomeConfig(client, guildId, cfg);
-
-    await sendEphemeralFollowUp(selectInteraction, {
-        embeds: [
-            successEmbed(
-                '✅ Goodbye Ping Updated',
-                `Leaving users will${cfg.goodbyePing ? '' : ' **not**'} be pinged in the goodbye message.`,
-            ),
-        ],
-    });
-
-    await refreshDashboard(rootInteraction, cfg, guildId);
-}
+        .setTitle('تعيين الترحيب ا
