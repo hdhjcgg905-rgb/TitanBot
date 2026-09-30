@@ -17,22 +17,22 @@ const defaultAccountAgeDays = autoVerifyDefaults.defaultAccountAgeDays ?? 7;
 export default {
     data: new SlashCommandBuilder()
         .setName("autoverify")
-        .setDescription("Configure automatic verification settings")
+        .setDescription("إعداد تلقائي التحقق الإعدادات")
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addSubcommand(subcommand =>
             subcommand
                 .setName("setup")
-                .setDescription("Set up automatic verification")
+                .setDescription("تعيين أعلى تلقائي التحقق")
                 .addRoleOption(option =>
                     option
                         .setName("role")
-                        .setDescription("Role to assign to users who meet auto-verify criteria")
+                        .setDescription("الرتبة إلى تعيين إلى المستخدمون who meet auto-verify المعايير")
                         .setRequired(true)
                 )
                 .addStringOption(option =>
                     option
                         .setName("criteria")
-                        .setDescription("Criteria for automatic verification")
+                        .setDescription("المعايير لـ تلقائي التحقق")
                         .addChoices(
                             { name: "Account Age", value: "account_age" },
                             { name: "No Criteria", value: "none" }
@@ -42,7 +42,7 @@ export default {
                 .addIntegerOption(option =>
                     option
                         .setName("account_age_days")
-                        .setDescription("Minimum account age in days (required for account age criteria)")
+                        .setDescription("الأدنى الحساب العمر في الأيام (مطلوب لـ الحساب العمر المعايير)")
                         .setMinValue(minAccountAgeDays)
                         .setMaxValue(maxAccountAgeDays)
                         .setRequired(false)
@@ -51,7 +51,7 @@ export default {
         .addSubcommand(subcommand =>
             subcommand
                 .setName("dashboard")
-                .setDescription("Open the auto-verification dashboard for customization")
+                .setDescription("فتح الـ auto-verification لوحة التحكم لـ customization")
         ),
 
     async execute(interaction, config, client) {
