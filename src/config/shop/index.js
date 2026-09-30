@@ -14,28 +14,28 @@ export const shopConfig = {
         {
             id: 'consumables',
             name: 'Consumables',
-            description: 'One-time use items that provide temporary benefits',
+            description: 'One-time استخدم العناصر ذلك provide المؤقتة benefits',
             icon: '🍯',
             itemTypes: ['consumable']
         },
         {
             id: 'upgrades',
             name: 'Upgrades',
-            description: 'Permanent upgrades that enhance your abilities',
+            description: 'Permanent upgrades ذلك enhance الخاص بك abilities',
             icon: '⚡',
             itemTypes: ['upgrade']
         },
         {
             id: 'tools',
             name: 'Tools',
-            description: 'Equipment that helps you gather resources more efficiently',
+            description: 'Equipment ذلك يساعد أنت gather resources المزيد efficiently',
             icon: '⛏️',
             itemTypes: ['tool']
         },
         {
             id: 'roles',
             name: 'Roles',
-            description: 'Special roles with unique perks',
+            description: 'Special الرتب مع unique perks',
             icon: '🎭',
             itemTypes: ['role']
         }
@@ -156,7 +156,7 @@ export function getCategoryForItem(itemType) {
     ) || {
         id: 'other',
         name: 'Other',
-        description: 'Miscellaneous items',
+        description: 'Miscellaneous العناصر',
         icon: '📦'
     };
 }
