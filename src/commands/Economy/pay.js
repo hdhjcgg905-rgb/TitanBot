@@ -9,17 +9,17 @@ import EconomyService from '../../services/economyService.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('pay')
-        .setDescription('Pay another user some of your cash')
+        .setDescription('دفع آخر المستخدم بعض من الخاص بك النقد')
         .addUserOption(option =>
             option
                 .setName('user')
-                .setDescription('User to pay')
+                .setDescription('المستخدم إلى دفع')
                 .setRequired(true)
         )
         .addIntegerOption(option =>
             option
                 .setName('amount')
-                .setDescription('Amount to pay')
+                .setDescription('المبلغ إلى دفع')
                 .setRequired(true)
                 .setMinValue(1)
         ),
@@ -134,8 +134,8 @@ export default {
 
             try {
                 const receiverEmbed = createEmbed({ 
-                    title: "Incoming Payment!", 
-                    description: `${interaction.user.username} paid you **$${amount.toLocaleString()}**.` 
+                    title: "وارد الدفع!", 
+                    description: `${interaction.user.username} دفع أنت **$${amount.toLocaleString()}**.` 
                 }).addFields({
                     name: "Your New Cash",
                     value: `$${updatedReceiverData.wallet.toLocaleString()}`,
