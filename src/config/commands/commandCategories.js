@@ -1,4 +1,9 @@
-/**
+/**import { spawnSync } from 'node:child_process';
+import { readdir } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import dotenv from 'dotenv';
+import { logger } from '../../utils/logger.js';
  * البيانات الوصفية لفئات الأوامر الخاصة بمدير الوصول للأوامر.
  */
 
@@ -33,15 +38,7 @@ export function normalizeCategoryKey(category) {
     .trim()
     .toLowerCase()
     .replace(/\s+/g, '_');
-}
-
-import { spawnSync } from 'node:child_process';
-import { readdir } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import dotenv from 'dotenv';
-import { logger } from '../src/utils/logger.js';
-
+   }
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, '..', '.env') });
 
