@@ -9,17 +9,17 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
   data: new SlashCommandBuilder()
     .setName('levelremove')
-    .setDescription('Remove levels from a user')
+    .setDescription('إزالة مستويات من مستخدم')
     .addUserOption((option) =>
       option
         .setName('user')
-        .setDescription('The user to remove levels from')
+        .setDescription('المستخدم الذي ستُزال منه المستويات')
         .setRequired(true)
     )
     .addIntegerOption((option) =>
       option
         .setName('levels')
-        .setDescription('Number of levels to remove')
+        .setDescription('عدد المستويات المراد إزالتها')
         .setRequired(true)
         .setMinValue(1)
     )
@@ -43,7 +43,7 @@ export default {
         embeds: [
           new EmbedBuilder()
             .setColor('#f1c40f')
-            .setDescription('The leveling system is currently disabled on this server.')
+            .setDescription('نظام المستويات معطّل حاليًا في هذا السيرفر.')
         ],
         flags: MessageFlags.Ephemeral
       });
@@ -76,8 +76,8 @@ export default {
     await InteractionHelper.safeEditReply(interaction, {
       embeds: [
         createEmbed({
-          title: 'Levels Removed',
-          description: `Successfully removed ${levelsToRemove} levels from ${targetUser.tag}.\n**New Level:** ${updatedData.level}`,
+          title: 'تمت إزالة المستويات',
+          description: `تمت إزالة ${levelsToRemove} المستويات من ${targetUser.tag}.\n**المستوى الجديد:** ${updatedData.level}`,
           color: 'success'
         })
       ]
