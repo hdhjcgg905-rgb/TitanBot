@@ -1,73 +1,124 @@
-// welcome.js
+import { getColor } from '../../config/bot.js';
+import { SlashCommandBuilder, PermissionFlagsBits, ChannelType, EmbedBuilder, MessageFlags } from 'discord.js';
+import { getWelcomeConfig, updateWelcomeConfig } from '../../utils/database.js';
+import { formatWelcomeMessage, truncateForEmbedField } from '../../utils/welcome.js';
+import { logger } from '../../utils/logger.js';
+import { InteractionHelper } from '../../utils/interactionHelper.js';
+import { ErrorTypes, replyUserError } from '../../utils/errorHandler.js';
 
-import { logger } from './logger.js';
+export default {
+    data: new SlashCommandBuilder()
+        .setName('welcome')
+        .setDescription('إدارة نظام الترحيب')
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('setup')
+                .setDescription('إعداد رسالة الترحيب')
+                .addChannelOption(option =>
+                    option.setName('channel')
+                        .setDescription('القناة التي ستُرسل إليها رسائل الترحيب')
+                        .addChannelTypes(ChannelType.GuildText)
+                        .setRequired(true))
+                .addStringOption(option =>
+                    option.setName('message')
+                        .setDescription('الترحيب الرسالة. المتغيرات: {user}, {username}, {server}, {memberCount}')
+                        .setRequired(true))
+                .addStringOption(option =>
+                    option.setName('image')
+                        .setDescription('رابط الصورة المراد تضمينها في رسالة الترحيب')
+                        .setRequired(false))
+                .addBooleanOption(option =>
+                    option.setName('ping')
+                        .setDescription('تحديد ما إذا كان سيتم الإشارة إلى المستخدم في رسالة الترحيب')
+                        .setRequired(false))),
 
-const DEFAULT_TEMPLATES = {
-    welcome: 'Welcome {user} to {server}!',
-    goodbye: '{user.tag} has left the server.'
+    async execute(interaction) {
+        try {
+            const deferSuccess = await InteractionHelper.safeDefer(interaction);
+            if (!deferSuccess) {
+                logger.warn(`Welcome interaction defer failed`, {
+                    userId: interaction.user.id,
+                    guildId: interaction.guildId,
+                    commandName: 'welcome'
+                });
+                return;
+            }
+        } catch (deferError) {
+            logger.error(`Welcome defer error`, { error: deferError.message });
+            return;
+        }
+
+        const { options, guild, client } = interaction;
+
+        if (!interaction.memberPermissions?.has(PermissionFlagsBits.ManageGuild)) {
+            return await replyUserError(interaction, { type: ErrorTypes.PERMISSION, message: 'You need the **Manage Server** permission to use `/welcome`.' });
+        }
+
+        const subcommand = options.getSubcommand();
+
+        if (subcommand === 'setup') {
+            const channel = options.getChannel('channel');
+            const message = options.getString('message');
+            const image = options.getString('image');
+            const ping = options.getBoolean('ping') ?? false;
+
+            const existingConfig = await getWelcomeConfig(client, guild.id);
+            if (existingConfig?.channelId) {
+                logger.info(`[Welcome] Setup blocked because config already exists in channel ${existingConfig.channelId} for guild ${guild.id}`);
+                return await replyUserError(interaction, { type: ErrorTypes.UNKNOWN, message: `Welcome is already configured for <#${existingConfig.channelId}>. Use **/greet dashboard** to customize channel, message, ping, or image.` });
+            }
+            
+            if (!message || message.trim().length === 0) {
+                logger.warn(`[Welcome] Empty message provided by ${interaction.user.tag} in ${guild.name}`);
+                return await replyUserError(interaction, { type: ErrorTypes.VALIDATION, message: 'Welcome message cannot be empty' });
+            }
+
+            if (image) {
+                try {
+                    new URL(image);
+                } catch (e) {
+                    logger.warn(`[Welcome] Invalid image URL provided by ${interaction.user.tag}: ${image}`);
+                    return await replyUserError(interaction, { type: ErrorTypes.VALIDATION, message: 'Please provide a valid image URL (must start with http:// or https://' });
+                }
+            }
+
+            try {
+                await updateWelcomeConfig(client, guild.id, {
+                    enabled: true,
+                    channelId: channel.id,
+                    welcomeMessage: message,
+                    welcomeImage: image || undefined,
+                    welcomePing: ping
+                });
+
+                logger.info(`[Welcome] Setup configured by ${interaction.user.tag} for guild ${guild.name} (${guild.id})`);
+
+                const previewMessage = formatWelcomeMessage(message, {
+                    user: interaction.user,
+                    guild
+                });
+
+                const embed = new EmbedBuilder()
+                    .setColor(getColor('success'))
+                    .setTitle('الترحيب النظام تم الإعداد')
+                    .setDescription(`ستُرسل رسائل الترحيب الآن إلى ${channel}`)
+                    .addFields(
+                        { name: 'Message Preview', value: truncateForEmbedField(previewMessage) },
+                        { name: 'Ping User', value: ping ? 'Yes' : 'No' },
+                        { name: 'Status', value: 'Enabled' }
+                    )
+                    .setFooter({ text: 'Tip: Use /greet dashboard to customize welcome settings' });
+
+                if (image) {
+                    embed.setImage(image);
+                }
+
+                await InteractionHelper.safeEditReply(interaction, { embeds: [embed] });
+            } catch (error) {
+                logger.error(`[Welcome] Failed to setup welcome system for guild ${guild.id}:`, error);
+                await replyUserError(interaction, { type: ErrorTypes.UNKNOWN, message: 'An error occurred while configuring the welcome system. Please try again.' });
+            }
+        }
+    },
 };
-
-function replaceAll(message, token, value) {
-    if (value === undefined || value === null) {
-        return message;
-    }
-    return message.split(token).join(String(value));
-}
-
-export function truncateForEmbedField(value, maxLength = 1024) {
-    const text = String(value ?? '').trim();
-    if (!text) {
-        return '—';
-    }
-    return text.length <= maxLength ? text : `${text.slice(0, maxLength - 1)}…`;
-}
-
-export function formatWelcomeMessage(message, data) {
-    
-    if (typeof message !== 'string') return '';
-    if (!message) return '';
-    if (!data || typeof data !== 'object') return message;
-
-    const user = data?.user;
-    const guild = data?.guild;
-
-    if (!user || typeof user !== 'object') {
-        logger.warn('Invalid user object passed to formatWelcomeMessage');
-    }
-    if (!guild || typeof guild !== 'object') {
-        logger.warn('Invalid guild object passed to formatWelcomeMessage');
-    }
-
-    const tokens = {
-        '{user}': user?.toString?.() || 'User',
-        '{user.mention}': user?.toString?.() || 'User',
-        '{user.tag}': user?.tag || 'Unknown#0000',
-        '{user.username}': user?.username || 'Unknown',
-        '{username}': user?.username || 'Unknown',
-        '{user.discriminator}': user?.discriminator || '0000',
-        '{user.id}': user?.id || 'unknown',
-        '{server}': guild?.name || 'Server',
-        '{server.name}': guild?.name || 'Server',
-        '{guild.name}': guild?.name || 'Server',
-        '{guild.id}': guild?.id || 'unknown',
-        '{guild.memberCount}': guild?.memberCount?.toString?.() || '0',
-        '{memberCount}': guild?.memberCount?.toString?.() || '0',
-        '{membercount}': guild?.memberCount?.toString?.() || '0'
-    };
-
-    let result = message;
-    for (const [token, value] of Object.entries(tokens)) {
-        if (value === undefined || value === null) continue;
-        result = replaceAll(result, token, String(value));
-    }
-
-    return result;
-}
-
-export function getDefaultWelcomeMessage() {
-    return DEFAULT_TEMPLATES.welcome;
-}
-
-export function getDefaultGoodbyeMessage() {
-    return DEFAULT_TEMPLATES.goodbye;
-}
