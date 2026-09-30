@@ -9,28 +9,28 @@ import { ErrorTypes, replyUserError } from '../../utils/errorHandler.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('welcome')
-        .setDescription('Configure the welcome system')
+        .setDescription('إدارة نظام الترحيب')
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .addSubcommand(subcommand =>
             subcommand
                 .setName('setup')
-                .setDescription('Set up the welcome message')
+                .setDescription('إعداد رسالة الترحيب')
                 .addChannelOption(option =>
                     option.setName('channel')
-                        .setDescription('The channel to send welcome messages to')
+                        .setDescription('القناة التي ستُرسل إليها رسائل الترحيب')
                         .addChannelTypes(ChannelType.GuildText)
                         .setRequired(true))
                 .addStringOption(option =>
                     option.setName('message')
-                        .setDescription('Welcome message. Variables: {user}, {username}, {server}, {memberCount}')
+                        .setDescription('الترحيب الرسالة. المتغيرات: {user}, {username}, {server}, {memberCount}')
                         .setRequired(true))
                 .addStringOption(option =>
                     option.setName('image')
-                        .setDescription('URL of the image to include in the welcome message')
+                        .setDescription('رابط الصورة المراد تضمينها في رسالة الترحيب')
                         .setRequired(false))
                 .addBooleanOption(option =>
                     option.setName('ping')
-                        .setDescription('Whether to ping the user in the welcome message')
+                        .setDescription('تحديد ما إذا كان سيتم الإشارة إلى المستخدم في رسالة الترحيب')
                         .setRequired(false))),
 
     async execute(interaction) {
@@ -101,8 +101,8 @@ export default {
 
                 const embed = new EmbedBuilder()
                     .setColor(getColor('success'))
-                    .setTitle('Welcome System Configured')
-                    .setDescription(`Welcome messages will now be sent to ${channel}`)
+                    .setTitle('الترحيب النظام تم الإعداد')
+                    .setDescription(`ستُرسل رسائل الترحيب الآن إلى ${channel}`)
                     .addFields(
                         { name: 'Message Preview', value: truncateForEmbedField(previewMessage) },
                         { name: 'Ping User', value: ping ? 'Yes' : 'No' },
