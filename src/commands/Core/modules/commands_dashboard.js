@@ -119,8 +119,8 @@ export function buildOverviewEmbed(snapshot, guild) {
   });
 
   return createEmbed({
-    title: '⚙️ Command Access',
-    description: `Manage slash and prefix commands for **${guild.name}**. Subcommands (e.g. \`birthday list\`) are listed separately.`,
+    title: '⚙️ صلاحيات الأوامر',
+    description: `إدارة slash و البادئة الأوامر لـ **${guild.name}**. Subcommands (e.g. \`birthday list\`) are listed separately.`,
     color: 'info',
     fields,
     footer: '🔒 commands & configwizard always stay available',
@@ -175,7 +175,7 @@ export function buildCategoryEmbed(category, guild) {
 
   return createEmbed({
     title: `${category.icon} ${category.displayName}`,
-    description: `Command access for **${guild.name}**.`,
+    description: `الأمر الوصول لـ **${guild.name}**.`,
     color: category.categoryDisabled ? 'error' : category.disabledCount > 0 ? 'warning' : 'success',
     fields,
     footer: '🔒 Protected entries cannot be disabled',
@@ -187,7 +187,7 @@ export function buildOverviewComponents(guildId, snapshot) {
     const status = getCategoryStatus(category);
     return new StringSelectMenuOptionBuilder()
       .setLabel(`${category.displayName}`.slice(0, 100))
-      .setDescription(`${status} ${category.enabledCount}/${category.totalCount} enabled`.slice(0, 100))
+      .setDescription(`${status} ${category.enabledCount}/${category.totalCount} مفعّل`.slice(0, 100))
       .setValue(category.key)
       .setEmoji(category.icon);
   });
@@ -196,13 +196,13 @@ export function buildOverviewComponents(guildId, snapshot) {
     new ActionRowBuilder().addComponents(
       new StringSelectMenuBuilder()
         .setCustomId(customId(DASHBOARD_CATEGORY_SELECT, guildId))
-        .setPlaceholder('📁 Select a category...')
+        .setPlaceholder('📁 اختر  الفئة...')
         .addOptions(categoryOptions),
     ),
     new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId(customId(DASHBOARD_REFRESH, guildId))
-        .setLabel('Refresh')
+        .setLabel('تحديث')
         .setEmoji('🔄')
         .setStyle(ButtonStyle.Secondary),
     ),
@@ -227,7 +227,7 @@ export function buildCategoryComponents(guildId, category) {
     new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId(customId(DASHBOARD_HOME, guildId))
-        .setLabel('Back')
+        .setLabel('رجوع')
         .setEmoji('◀️')
         .setStyle(ButtonStyle.Secondary),
       new ButtonBuilder()
@@ -237,17 +237,17 @@ export function buildCategoryComponents(guildId, category) {
         .setStyle(category.categoryDisabled ? ButtonStyle.Success : ButtonStyle.Danger),
       new ButtonBuilder()
         .setCustomId(customId(DASHBOARD_ENABLE_ALL, guildId, category.key))
-        .setLabel('Enable All')
+        .setLabel('تفعيل الكل')
         .setEmoji('✅')
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId(customId(DASHBOARD_DISABLE_ALL, guildId, category.key))
-        .setLabel('Disable All')
+        .setLabel('تعطيل الكل')
         .setEmoji('⛔')
         .setStyle(ButtonStyle.Danger),
       new ButtonBuilder()
         .setCustomId(customId(DASHBOARD_RESET_COMMANDS, guildId, category.key))
-        .setLabel('Clear Overrides')
+        .setLabel('مسح Overrides')
         .setEmoji('🧹')
         .setStyle(ButtonStyle.Secondary),
     ),
@@ -258,7 +258,7 @@ export function buildCategoryComponents(guildId, category) {
       new ActionRowBuilder().addComponents(
         new StringSelectMenuBuilder()
           .setCustomId(customId(DASHBOARD_COMMAND_SELECT, guildId, category.key))
-          .setPlaceholder('Toggle a command or subcommand...')
+          .setPlaceholder('تبديل  الأمر أو الأمر الفرعي...')
           .addOptions(commandOptions),
       ),
     );
@@ -301,7 +301,7 @@ export async function handleDashboardComponent(interaction, client) {
 
   if (guildId !== interaction.guildId) {
     return interaction.reply({
-      content: 'This dashboard belongs to another server.',
+      content: 'لوحة التحكم هذه تخص سيرفرًا آخر.',
       ephemeral: true,
     });
   }
@@ -373,7 +373,7 @@ export async function handleDashboardComponent(interaction, client) {
     return interaction.editReply({ embeds: [view.embed], components: view.components });
   }
 
-  return interaction.editReply({ content: 'Unknown dashboard action.', embeds: [], components: [] });
+  return interaction.editReply({ content: 'إجراء غير معروف في لوحة التحكم.', embeds: [], components: [] });
 }
 
 export function isCommandAccessCustomId(customIdValue) {
