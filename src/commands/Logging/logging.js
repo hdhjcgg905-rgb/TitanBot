@@ -9,22 +9,22 @@ import { replyUserError, ErrorTypes } from '../../utils/errorHandler.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('logging')
-        .setDescription('Manage server logging — channels, filters, and event categories.')
+        .setDescription('إدارة السيرفر السجلات — القنوات, التصفية, و الحدث الفئات.')
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('dashboard')
-                .setDescription('Open the logging dashboard — set channels, filters, and toggle categories.'),
+                .setDescription('فتح الـ السجلات لوحة التحكم — تعيين القنوات, التصفية, و toggle الفئات.'),
         )
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('channel')
-                .setDescription('Quick-set a log channel without opening the dashboard.')
+                .setDescription('Quick-set  سجل القناة بدون opening الـ لوحة التحكم.')
                 .addStringOption((option) =>
                     option
                         .setName('destination')
-                        .setDescription('Which log destination to configure.')
+                        .setDescription('أي سجل destination إلى إعداد.')
                         .setRequired(true)
                         .addChoices(
                             { name: 'Audit (moderation, messages, members…)', value: 'audit' },
@@ -35,14 +35,14 @@ export default {
                 .addChannelOption((option) =>
                     option
                         .setName('channel')
-                        .setDescription('The text channel for logs.')
+                        .setDescription('الـ نص القناة لـ السجلات.')
                         .addChannelTypes(ChannelType.GuildText)
                         .setRequired(false),
                 )
                 .addBooleanOption((option) =>
                     option
                         .setName('disable')
-                        .setDescription('Set to True to clear this log channel.')
+                        .setDescription('تعيين إلى True إلى مسح هذا سجل القناة.')
                         .setRequired(false),
                 ),
         ),
