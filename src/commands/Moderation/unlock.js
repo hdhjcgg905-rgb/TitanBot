@@ -10,7 +10,7 @@ export default {
     data: new SlashCommandBuilder()
         .setName("unlock")
         .setDescription(
-            "Unlocks the current channel (allows @everyone to send messages again).",
+            "Unlocks الـ الحالي القناة (يسمح @الجميع إلى إرسال الرسائل مرة أخرى).",
         )
 .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels),
     category: "moderation",
