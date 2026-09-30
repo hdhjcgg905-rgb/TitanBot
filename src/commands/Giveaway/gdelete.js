@@ -10,12 +10,12 @@ export default {
     data: new SlashCommandBuilder()
         .setName("gdelete")
         .setDescription(
-            "Deletes a giveaway message and removes it from the database.",
+            "Deletes  السحب الرسالة و removes it من الـ database.",
         )
         .addStringOption((option) =>
             option
                 .setName("messageid")
-                .setDescription("The message ID of the giveaway to delete.")
+                .setDescription("معرّف رسالة السحب الذي تريد حذفه.")
                 .setRequired(true),
         )
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
@@ -155,7 +155,7 @@ export default {
                 guildId: interaction.guildId,
                 eventType: EVENT_TYPES.GIVEAWAY_DELETE,
                 data: {
-                    description: `Giveaway deleted: ${giveaway.prize}`,
+                    description: `السحب محذوفة: ${giveaway.prize}`,
                     channelId: giveaway.channelId,
                     userId: interaction.user.id,
                     fields: [
