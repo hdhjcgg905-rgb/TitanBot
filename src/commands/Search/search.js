@@ -8,32 +8,32 @@ import searchUrban from './modules/search_urban.js';
 export default {
     data: new SlashCommandBuilder()
         .setName('search')
-        .setDescription('Search the web and dictionaries')
+        .setDescription('البحث في الويب والقواميس')
         .addSubcommand(subcommand =>
             subcommand
                 .setName('define')
-                .setDescription('Look up a word definition')
+                .setDescription('البحث عن تعريف كلمة')
                 .addStringOption(option =>
                     option.setName('word')
-                        .setDescription('The word to look up')
+                        .setDescription('الكلمة المطلوب البحث عن تعريفها')
                         .setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('google')
-                .setDescription('Search Google')
+                .setDescription('البحث في Google')
                 .addStringOption(option =>
                     option.setName('query')
-                        .setDescription('What would you like to search for?')
+                        .setDescription('ما الذي تريد البحث عنه؟')
                         .setRequired(true))
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('urban')
-                .setDescription('Search Urban Dictionary for definitions')
+                .setDescription('البحث عن التعريفات في Urban القاموس')
                 .addStringOption(option =>
                     option.setName('term')
-                        .setDescription('The term to look up on Urban Dictionary')
+                        .setDescription('المصطلح المطلوب البحث عنه في Urban القاموس')
                         .setRequired(true))
         ),
 
