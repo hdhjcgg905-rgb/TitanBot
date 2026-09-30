@@ -35,7 +35,7 @@ export default {
             eventType: EVENT_TYPES.REPORT_FILE,
             content: ownerMention,
             data: {
-                title: 'User Report',
+                title: 'المستخدم بلاغ',
                 lines: [
                     formatLogLine('Reported User', `${targetUser.tag} (\`${targetUser.id}\`)`),
                     formatLogLine('Reported By', `${interaction.user.tag} (\`${interaction.user.id}\`)`),
@@ -49,8 +49,8 @@ export default {
 
         await InteractionHelper.safeEditReply(interaction, {
             embeds: [createEmbed({
-                title: 'Report Submitted',
-                description: `Your report against **${targetUser.tag}** has been successfully filed and sent to the moderation team. Thank you!`,
+                title: 'بلاغ تم الإرسال',
+                description: `الخاص بك بلاغ ضد **${targetUser.tag}** لديه تم بنجاح قُدّم و أُرسل إلى الـ الإشراف الفريق. شكرًا أنت!`,
             })],
         });
 
