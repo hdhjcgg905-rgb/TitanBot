@@ -7,11 +7,11 @@ import { InteractionHelper } from '../../utils/interactionHelper.js';
 export default {
     data: new SlashCommandBuilder()
     .setName("roll")
-    .setDescription("Rolls dice using standard notation (e.g., 2d20, 1d6 + 5).")
+    .setDescription("رمي النرد بالصيغة المعتادة (مثل 2d20 أو 1d6 + 5).")
     .addStringOption((option) =>
       option
         .setName("notation")
-        .setDescription("The dice notation (e.g., 2d6, 1d20 + 4)")
+        .setDescription("صيغة النرد (مثل 2d6 أو 1d20 + 4)")
         .setRequired(true)
         .setMaxLength(50),
     ),
