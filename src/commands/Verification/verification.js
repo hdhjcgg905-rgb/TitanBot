@@ -12,35 +12,35 @@ import verificationDashboard from './modules/verification_dashboard.js';
 export default {
     data: new SlashCommandBuilder()
         .setName("verification")
-        .setDescription("Manage the server verification system")
+        .setDescription("إدارة الـ السيرفر التحقق النظام")
         .addSubcommand(subcommand =>
             subcommand
                 .setName("setup")
-                .setDescription("Set up the verification system")
+                .setDescription("تعيين أعلى الـ التحقق النظام")
                 .addChannelOption(option =>
                     option
                         .setName("verification_channel")
-                        .setDescription("Channel where verification messages will be sent")
+                        .setDescription("القناة حيث التحقق الرسائل سيتم يكون أُرسل")
                         .addChannelTypes(ChannelType.GuildText)
                         .setRequired(true)
                 )
                 .addRoleOption(option =>
                     option
                         .setName("verified_role")
-                        .setDescription("Role to give to verified users")
+                        .setDescription("الرتبة إلى give إلى تم التحقق المستخدمون")
                         .setRequired(true)
                 )
                 .addStringOption(option =>
                     option
                         .setName("message")
-                        .setDescription("Custom verification message")
+                        .setDescription("مخصص التحقق الرسالة")
                         .setMaxLength(2000)
                         .setRequired(false)
                 )
                 .addStringOption(option =>
                     option
                         .setName("button_text")
-                        .setDescription("Text for the verification button")
+                        .setDescription("نص لـ الـ التحقق الزر")
                         .setMaxLength(80)
                         .setRequired(false)
                 )
@@ -48,18 +48,18 @@ export default {
         .addSubcommand(subcommand =>
             subcommand
                 .setName("remove")
-                .setDescription("Remove verification from a user")
+                .setDescription("إزالة التحقق من  المستخدم")
                 .addUserOption(option =>
                     option
                         .setName("user")
-                        .setDescription("User to remove verification from")
+                        .setDescription("المستخدم إلى إزالة التحقق من")
                         .setRequired(true)
                 )
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName("dashboard")
-                .setDescription("Open the verification system configuration dashboard")
+                .setDescription("فتح الـ التحقق النظام الإعدادات لوحة التحكم")
         ),
 
     async execute(interaction, config, client) {
@@ -182,7 +182,7 @@ async function handleSetup(interaction, guild, client) {
     await InteractionHelper.safeDefer(interaction);
 
     const verifyEmbed = createEmbed({
-        title: "Server Verification",
+        title: "السيرفر التحقق",
         description: message,
         color: getColor('success')
     });
