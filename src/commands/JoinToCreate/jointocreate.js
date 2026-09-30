@@ -1,4 +1,4 @@
-import { getColor } from '../../config/bot.js';
+'import { getColor } from '../../config/bot.js';
 import { SlashCommandBuilder, PermissionFlagsBits, MessageFlags, ChannelType, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, StringSelectMenuBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder, LabelBuilder } from 'discord.js';
 import { successEmbed, warningEmbed } from '../../utils/embeds.js';
 import { logger } from '../../utils/logger.js';
@@ -17,23 +17,23 @@ import {
 export default {
     data: new SlashCommandBuilder()
         .setName("jointocreate")
-        .setDescription("Manage Join to Create voice channels system.")
+        .setDescription("إدارة نظام القنوات الصوتية عند الانضمام لإنشائها.")
         .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
         .setDMPermission(false)
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("setup")
-                .setDescription("Set up a new Join to Create voice channel.")
+                .setDescription("إعداد قناة صوتية جديدة للانضمام وإنشائها.")
                 .addChannelOption((option) =>
                     option
                         .setName("category")
-                        .setDescription("Category to create the channel in.")
+                        .setDescription("الفئة التي ستُنشأ فيها القناة.")
                         .addChannelTypes(ChannelType.GuildCategory)
                 )
                 .addStringOption((option) =>
                     option
                         .setName("channel_name")
-                        .setDescription("Select a template for naming temporary voice channels.")
+                        .setDescription("اختر قالب تسمية القنوات الصوتية المؤقتة.")
                         .addChoices(
                             { name: "{username}'s Room (Default)", value: "{username}'s Room" },
                             { name: "{username}'s Channel", value: "{username}'s Channel" },
@@ -50,22 +50,22 @@ export default {
                 .addIntegerOption((option) =>
                     option
                         .setName("user_limit")
-                        .setDescription("Maximum number of users in temporary channels. (0 = unlimited)")
+                        .setDescription("الحد الأقصى للمستخدمين في القنوات المؤقتة. (0 = بلا حد)")
                 )
                 .addIntegerOption((option) =>
                     option
                         .setName("bitrate")
-                        .setDescription("Bitrate for temporary channels in kbps (8-96).")
+                        .setDescription("معدل البت للقنوات المؤقتة بالكيلوبت/ثانية (8-96).")
                 )
         )
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("dashboard")
-                .setDescription("Configure an existing Join to Create system.")
+                .setDescription("إعداد نظام موجود للقنوات عند الانضمام.")
                 .addChannelOption((option) =>
                     option
                         .setName("trigger_channel")
-                        .setDescription("The Join to Create trigger channel to configure.")
+                        .setDescription("قناة التشغيل الخاصة بنظام الانضمام لإنشاء قناة.")
                         .setRequired(true)
                         .addChannelTypes(ChannelType.GuildVoice)
                 )
@@ -233,8 +233,8 @@ async function handleConfigSubcommand(interaction, client) {
         const channelConfig = currentConfig.channelConfig || {};
 
         const configEmbed = new EmbedBuilder()
-            .setTitle('Join to Create Configuration')
-            .setDescription(`Configuration for ${triggerChannel}`)
+            .setTitle('انضمام إلى إنشاء الإعدادات')
+            .setDescription(`إعدادات ${triggerChannel}`)
             .setColor(getColor('info'))
             .addFields(
                 {
@@ -258,22 +258,22 @@ async function handleConfigSubcommand(interaction, client) {
 
         const nameButton = new ButtonBuilder()
             .setCustomId(`jtc_config_name_${triggerChannel.id}`)
-            .setLabel('📝 Name Template')
+            .setLabel('📝 الاسم القالب')
             .setStyle(ButtonStyle.Primary);
 
         const limitButton = new ButtonBuilder()
             .setCustomId(`jtc_config_limit_${triggerChannel.id}`)
-            .setLabel('👥 User Limit')
+            .setLabel('👥 المستخدم حد')
             .setStyle(ButtonStyle.Primary);
 
         const bitrateButton = new ButtonBuilder()
             .setCustomId(`jtc_config_bitrate_${triggerChannel.id}`)
-            .setLabel('🎵 Bitrate')
+            .setLabel('🎵 معدل البت')
             .setStyle(ButtonStyle.Primary);
 
         const deleteButton = new ButtonBuilder()
             .setCustomId(`jtc_config_delete_${triggerChannel.id}`)
-            .setLabel('🗑️ Remove Channel')
+            .setLabel('🗑️ إزالة القناة')
             .setStyle(ButtonStyle.Danger);
 
         const row = new ActionRowBuilder().addComponents(nameButton, limitButton, bitrateButton, deleteButton);
@@ -303,7 +303,7 @@ async function handleConfigSubcommand(interaction, client) {
                 
                 if (!hasManageGuildPermission(buttonInteraction.member)) {
                     await buttonInteraction.reply({
-                        content: '❌ You need **Manage Server** permission to use these controls.',
+                        content: '❌ أنت يحتاج **إدارة السيرفر** الصلاحية إلى استخدم هذه عناصر التحكم.',
                         flags: MessageFlags.Ephemeral
                     });
                     return;
@@ -385,7 +385,7 @@ async function handleNameTemplateModal(interaction, triggerChannel, currentConfi
 
         const templateSelect = new StringSelectMenuBuilder()
             .setCustomId('template')
-            .setPlaceholder('Pick a name template...')
+            .setPlaceholder('اختيار  الاسم القالب...')
             .setOptions(
                 TEMPLATE_OPTIONS.map(o => ({
                     label: o.label,
@@ -395,12 +395,12 @@ async function handleNameTemplateModal(interaction, triggerChannel, currentConfi
             );
 
         const templateLabel = new LabelBuilder()
-            .setLabel('Channel name template')
+            .setLabel('القناة الاسم القالب')
             .setStringSelectMenuComponent(templateSelect);
 
         const modal = new ModalBuilder()
             .setCustomId(`jtc_name_modal_${triggerChannel.id}`)
-            .setTitle('Channel Name Template')
+            .setTitle('القناة الاسم القالب')
             .addLabelComponents(templateLabel);
 
         await interaction.showModal(modal);
@@ -412,7 +412,7 @@ async function handleNameTemplateModal(interaction, triggerChannel, currentConfi
 
         if (!hasManageGuildPermission(modalSubmission.member)) {
             await modalSubmission.reply({
-                content: '❌ You need **Manage Server** permission to modify these settings.',
+                content: '❌ أنت يحتاج **إدارة السيرفر** الصلاحية إلى تعديل هذه الإعدادات.',
                 flags: MessageFlags.Ephemeral
             });
             return;
@@ -456,229 +456,6 @@ async function handleUserLimitModal(interaction, triggerChannel, currentConfig, 
 
         const modal = new ModalBuilder()
             .setCustomId(`jtc_limit_modal_${triggerChannel.id}`)
-            .setTitle('Configure User Limit')
+            .setTitle('إعداد المستخدم حد')
             .addComponents(
-                new ActionRowBuilder().addComponents(
-                    new TextInputBuilder()
-                        .setCustomId('user_limit')
-                        .setLabel('Enter user limit (0-99, 0 = unlimited)')
-                        .setPlaceholder('Enter a number between 0 and 99')
-                        .setStyle(TextInputStyle.Short)
-                        .setRequired(true)
-                        .setMinLength(1)
-                        .setMaxLength(2)
-                        .setValue(currentLimit.toString())
-                )
-            );
-
-        await interaction.showModal(modal);
-
-        const modalSubmission = await interaction.awaitModalSubmit({
-            filter: (i) => i.customId === `jtc_limit_modal_${triggerChannel.id}` && i.user.id === interaction.user.id,
-            time: 60000
-        });
-
-        if (!hasManageGuildPermission(modalSubmission.member)) {
-            await modalSubmission.reply({
-                content: '❌ You need **Manage Server** permission to modify these settings.',
-                flags: MessageFlags.Ephemeral
-            });
-            return;
-        }
-
-        const userInput = modalSubmission.fields.getTextInputValue('user_limit').trim();
-
-        await updateChannelConfig(client, interaction.guild.id, triggerChannel.id, {
-            userLimit: parseInt(userInput)
-        });
-
-        await logConfigurationChange(client, interaction.guild.id, interaction.user.id, 'Updated user limit', {
-            channelId: triggerChannel.id,
-            userLimit: parseInt(userInput)
-        });
-
-        await modalSubmission.reply({
-            embeds: [successEmbed('Updated', `User limit changed to ${parseInt(userInput) === 0 ? 'Unlimited' : parseInt(userInput) + ' users'}`)],
-            flags: MessageFlags.Ephemeral
-        });
-
-    } catch (error) {
-        if (error.code === 'INTERACTION_COLLECTOR_ERROR') {
-            return;
-        }
-        if (error instanceof TitanBotError) {
-            throw error;
-        }
-        logger.error('Unexpected error in user limit modal:', error);
-        throw new TitanBotError(
-            `Modal error: ${error.message}`,
-            ErrorTypes.UNKNOWN,
-            'An error occurred while updating the user limit.'
-        );
-    }
-}
-
-async function handleBitrateModal(interaction, triggerChannel, currentConfig, client) {
-    try {
-        const currentBitrate = ((currentConfig.channelConfig.bitrate ?? currentConfig.bitrate ?? 64000) / 1000);
-
-        const modal = new ModalBuilder()
-            .setCustomId(`jtc_bitrate_modal_${triggerChannel.id}`)
-            .setTitle('Configure Bitrate')
-            .addComponents(
-                new ActionRowBuilder().addComponents(
-                    new TextInputBuilder()
-                        .setCustomId('bitrate')
-                        .setLabel('Enter bitrate in kbps (8-384)')
-                        .setPlaceholder('Enter a number between 8 and 384')
-                        .setStyle(TextInputStyle.Short)
-                        .setRequired(true)
-                        .setMinLength(1)
-                        .setMaxLength(3)
-                        .setValue(currentBitrate.toString())
-                )
-            );
-
-        await interaction.showModal(modal);
-
-        const modalSubmission = await interaction.awaitModalSubmit({
-            filter: (i) => i.customId === `jtc_bitrate_modal_${triggerChannel.id}` && i.user.id === interaction.user.id,
-            time: 60000
-        });
-
-        if (!hasManageGuildPermission(modalSubmission.member)) {
-            await modalSubmission.reply({
-                content: '❌ You need **Manage Server** permission to modify these settings.',
-                flags: MessageFlags.Ephemeral
-            });
-            return;
-        }
-
-        const userInput = modalSubmission.fields.getTextInputValue('bitrate').trim();
-
-        await updateChannelConfig(client, interaction.guild.id, triggerChannel.id, {
-            bitrate: parseInt(userInput) * 1000
-        });
-
-        await logConfigurationChange(client, interaction.guild.id, interaction.user.id, 'Updated bitrate', {
-            channelId: triggerChannel.id,
-            bitrate: parseInt(userInput)
-        });
-
-        await modalSubmission.reply({
-            embeds: [successEmbed('Updated', `Bitrate changed to ${parseInt(userInput)} kbps`)],
-            flags: MessageFlags.Ephemeral
-        });
-
-    } catch (error) {
-        if (error.code === 'INTERACTION_COLLECTOR_ERROR') {
-            return;
-        }
-        if (error instanceof TitanBotError) {
-            throw error;
-        }
-        logger.error('Unexpected error in bitrate modal:', error);
-        throw new TitanBotError(
-            `Modal error: ${error.message}`,
-            ErrorTypes.UNKNOWN,
-            'An error occurred while updating the bitrate.'
-        );
-    }
-}
-
-async function handleChannelDeletion(interaction, triggerChannel, currentConfig, client) {
-    try {
-        const confirmRow = new ActionRowBuilder().addComponents(
-            new ButtonBuilder()
-                .setCustomId(`jtc_delete_confirm_${triggerChannel.id}`)
-                .setLabel('🗑️ Yes, Delete')
-                .setStyle(ButtonStyle.Danger),
-            new ButtonBuilder()
-                .setCustomId(`jtc_delete_cancel_${triggerChannel.id}`)
-                .setLabel('❌ Cancel')
-                .setStyle(ButtonStyle.Secondary)
-        );
-
-        await InteractionHelper.safeReply(interaction, {
-            embeds: [warningEmbed('Confirm Deletion', `Are you sure you want to remove **${triggerChannel.name}** from the Join to Create system?\n\nThis action cannot be undone.`)],
-            components: [confirmRow],
-            flags: MessageFlags.Ephemeral
-        });
-
-        const message = await interaction.fetchReply();
-        const deleteCollector = message.createMessageComponentCollector({
-            componentType: ComponentType.Button,
-            filter: (i) => i.user.id === interaction.user.id && 
-                          (i.customId === `jtc_delete_confirm_${triggerChannel.id}` || 
-                           i.customId === `jtc_delete_cancel_${triggerChannel.id}`),
-            time: 600_000,
-            max: 1
-        });
-
-        deleteCollector.on('collect', async (buttonInteraction) => {
-            try {
-                
-                if (!hasManageGuildPermission(buttonInteraction.member)) {
-                    await buttonInteraction.reply({
-                        content: '❌ You need **Manage Server** permission to remove channels.',
-                        flags: MessageFlags.Ephemeral
-                    });
-                    return;
-                }
-
-                if (buttonInteraction.customId === `jtc_delete_confirm_${triggerChannel.id}`) {
-                    
-                    await removeTriggerChannel(client, interaction.guild.id, triggerChannel.id);
-
-                    await logConfigurationChange(client, interaction.guild.id, interaction.user.id, 'Removed Join to Create trigger', {
-                        channelId: triggerChannel.id,
-                        channelName: triggerChannel.name
-                    });
-
-                    try {
-                        if (triggerChannel.members.size === 0) {
-                            await triggerChannel.delete('Join to Create trigger removed by administrator');
-                        }
-                    } catch (deleteError) {
-                        logger.warn(`Could not delete channel ${triggerChannel.id}: ${deleteError.message}`);
-                        
-                    }
-
-                    await buttonInteraction.update({
-                        embeds: [successEmbed('Removed', `**${triggerChannel.name}** has been removed from the Join to Create system.`)],
-                        components: []
-                    });
-
-                } else {
-                    await buttonInteraction.update({
-                        embeds: [successEmbed('Cancelled', 'Channel removal has been cancelled.')],
-                        components: []
-                    });
-                }
-            } catch (collectError) {
-                logger.error('Error handling delete confirmation:', collectError);
-                await buttonInteraction.reply({
-                    content: '❌ An error occurred while processing your request.',
-                    flags: MessageFlags.Ephemeral
-                }).catch(() => {});
-            }
-        });
-
-        deleteCollector.on('end', (collected, reason) => {
-            if (reason === 'time' && collected.size === 0) {
-                message.edit({ components: [] }).catch(() => {});
-            }
-        });
-
-    } catch (error) {
-        if (error instanceof TitanBotError) {
-            throw error;
-        }
-        logger.error('Unexpected error in handleChannelDeletion:', error);
-        throw new TitanBotError(
-            `Deletion error: ${error.message}`,
-            ErrorTypes.UNKNOWN,
-            'An error occurred while removing the channel.'
-        );
-    }
-}
+                new ActionRowBuild
