@@ -36,12 +36,12 @@ export default {
                     new ActionRowBuilder().addComponents(
                         new ButtonBuilder()
                             .setCustomId('shop_prev')
-                            .setLabel('⬅️ Previous')
+                            .setLabel('⬅️ السابق')
                             .setStyle(ButtonStyle.Secondary)
                             .setDisabled(page === 1),
                         new ButtonBuilder()
                             .setCustomId('shop_next')
-                            .setLabel('Next ➡️')
+                            .setLabel('التالي ➡️')
                             .setStyle(ButtonStyle.Secondary)
                             .setDisabled(page === totalPages),
                     ),
