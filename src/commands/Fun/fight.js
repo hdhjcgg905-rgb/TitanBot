@@ -9,11 +9,11 @@ const EMBED_DESCRIPTION_LIMIT = 4096;
 export default {
     data: new SlashCommandBuilder()
     .setName("fight")
-    .setDescription("Starts a simulated 1v1 text-based battle.")
+    .setDescription("بدء معركة نصية محاكاة واحد ضد واحد.")
     .addUserOption((option) =>
       option
         .setName("opponent")
-        .setDescription("The user to fight.")
+        .setDescription("المستخدم الذي ستقاتله.")
         .setRequired(true),
     ),
   category: 'Fun',
