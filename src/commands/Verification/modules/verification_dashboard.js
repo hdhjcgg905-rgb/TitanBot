@@ -37,7 +37,7 @@ async function updateLivePanel(guild, cfg) {
         if (!msg) return;
 
         const verifyEmbed = new EmbedBuilder()
-            .setTitle('Server Verification')
+            .setTitle('السيرفر التحقق')
             .setDescription(cfg.message || botConfig.verification.defaultMessage)
             .setColor(getColor('success'));
 
@@ -64,8 +64,8 @@ function buildDashboardEmbed(cfg, guild, verifiedUserCount = 0, conflictSummary 
     const panelStatusValue = cfg.channelId ? formatPanelStatusField(panelStatus) : '`Not configured`';
 
     const embed = new EmbedBuilder()
-        .setTitle('✅ Verification System Dashboard')
-        .setDescription(`Manage verification settings for **${guild.name}**.\nSelect an option below to modify a setting.`)
+        .setTitle('✅ التحقق النظام لوحة التحكم')
+        .setDescription(`إدارة التحقق الإعدادات لـ **${guild.name}**.\nاختر خيارًا أدناه لتعديل إعداد.`)
         .setColor(getColor('info'))
         .addFields(
             { name: 'Panel Status', value: panelStatusValue, inline: false },
@@ -90,26 +90,26 @@ function buildDashboardEmbed(cfg, guild, verifiedUserCount = 0, conflictSummary 
 function buildSelectMenu(guildId) {
     return new StringSelectMenuBuilder()
         .setCustomId(`verif_cfg_${guildId}`)
-        .setPlaceholder('Select a setting to configure...')
+        .setPlaceholder('اختر  الإعداد إلى إعداد...')
         .addOptions(
             new StringSelectMenuOptionBuilder()
-                .setLabel('Change Verification Channel')
-                .setDescription('Set the channel where the verification panel is posted')
+                .setLabel('تغيير التحقق القناة')
+                .setDescription('تعيين الـ القناة حيث الـ التحقق اللوحة هو منشورة')
                 .setValue('channel')
                 .setEmoji('📢'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Change Verified Role')
-                .setDescription('Set the role assigned when a user verifies')
+                .setLabel('تغيير تم التحقق الرتبة')
+                .setDescription('تعيين الـ الرتبة assigned عندما  المستخدم verifies')
                 .setValue('role')
                 .setEmoji('🏷️'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Edit Verification Message')
-                .setDescription('Customise the message shown on the verification panel embed')
+                .setLabel('تعديل التحقق الرسالة')
+                .setDescription('Customise الـ الرسالة المعروض في الـ التحقق اللوحة التضمين')
                 .setValue('message')
                 .setEmoji('💬'),
             new StringSelectMenuOptionBuilder()
-                .setLabel('Edit Button Text')
-                .setDescription('Change the label on the verify button')
+                .setLabel('تعديل الزر نص')
+                .setDescription('تغيير الـ الاسم في الـ تحقق الزر')
                 .setValue('button_text')
                 .setEmoji('🔘'),
         );
@@ -126,7 +126,7 @@ function buildButtonRow(cfg, guildId, disabled = false, panelStatus = null) {
         buttons.push(
             new ButtonBuilder()
                 .setCustomId(`verif_cfg_repost_${guildId}`)
-                .setLabel('Repost Panel')
+                .setLabel('إعادة نشر اللوحة')
                 .setStyle(ButtonStyle.Primary)
                 .setEmoji('📌')
                 .setDisabled(disabled),
@@ -136,7 +136,7 @@ function buildButtonRow(cfg, guildId, disabled = false, panelStatus = null) {
     buttons.push(
         new ButtonBuilder()
             .setCustomId(`verif_cfg_toggle_${guildId}`)
-            .setLabel('Verification')
+            .setLabel('التحقق')
             .setStyle(systemOn ? ButtonStyle.Success : ButtonStyle.Danger)
             .setEmoji('🔒')
             .setDisabled(disabled),
@@ -156,7 +156,7 @@ async function repostVerificationPanel(guild, cfg) {
     }
 
     const verifyEmbed = new EmbedBuilder()
-        .setTitle('Server Verification')
+        .setTitle('السيرفر التحقق')
         .setDescription(cfg.message || botConfig.verification.defaultMessage)
         .setColor(getColor('success'));
 
@@ -374,8 +374,8 @@ export default {
                     await InteractionHelper.safeEditReply(rootInteraction, {
                         embeds: [
                             new EmbedBuilder()
-                                .setTitle('Dashboard Timed Out')
-                                .setDescription('This dashboard has been closed due to inactivity. Please run the command again to continue.')
+                                .setTitle('لوحة التحكم انتهت المهلة المهلة')
+                                .setDescription('تم إغلاق لوحة التحكم بسبب عدم النشاط. شغّل الأمر مرة أخرى للمتابعة.')
                                 .setColor(getColor('error')),
                         ],
                         components: [],
@@ -400,16 +400,16 @@ async function handleChannel(selectInteraction, rootInteraction, cfg, guildId, c
 
     const channelSelect = new ChannelSelectMenuBuilder()
         .setCustomId('verif_cfg_channel')
-        .setPlaceholder('Select a text channel...')
+        .setPlaceholder('اختر  نص القناة...')
         .addChannelTypes(ChannelType.GuildText)
         .setMaxValues(1);
 
     await selectInteraction.followUp({
         embeds: [
             new EmbedBuilder()
-                .setTitle('Change Verification Channel')
+                .setTitle('تغيير التحقق القناة')
                 .setDescription(
-                    `**Current:** ${cfg.channelId ?`<#${cfg.channelId}>`: '`Not set`'}\n\nSelect the channel where the verification panel will be posted.\n\n> ⚠️ The existing panel will be deleted and re-posted in the new channel.`,
+                    `**الحالي:** ${cfg.channelId ?`<#${cfg.channelId}>`: '`Not set`'}\n\nSelect the channel where the verification panel will be posted.\n\n> ⚠️ The existing panel will be deleted and re-posted in the new channel.`,
                 )
                 .setColor(getColor('info')),
         ],
@@ -452,218 +452,5 @@ async function handleChannel(selectInteraction, rootInteraction, cfg, guildId, c
         if (cfg.enabled !== false) {
             try {
                 const verifyEmbed = new EmbedBuilder()
-                    .setTitle('Server Verification')
-                    .setDescription(cfg.message || botConfig.verification.defaultMessage)
-                    .setColor(getColor('success'));
-
-                const verifyButton = new ActionRowBuilder().addComponents(
-                    new ButtonBuilder()
-                        .setCustomId('verify_user')
-                        .setLabel(cfg.buttonText || botConfig.verification.defaultButtonText)
-                        .setStyle(ButtonStyle.Success)
-                        .setEmoji('✅'),
-                );
-
-                const newMsg = await newChannel.send({ embeds: [verifyEmbed], components: [verifyButton] });
-                cfg.messageId = newMsg.id;
-            } catch (error) {
-                logger.warn('Could not post verification panel in new channel:', error.message);
-            }
-        }
-
-        cfg.channelId = newChannel.id;
-        const latestConfig = await getGuildConfig(client, guildId);
-        latestConfig.verification = cfg;
-        await setGuildConfig(client, guildId, latestConfig);
-
-        await chanInteraction.followUp({
-            embeds: [successEmbed('Channel Updated', `Verification panel moved to ${newChannel}.`)],
-            flags: MessageFlags.Ephemeral,
-        });
-
-        await refreshDashboard(rootInteraction, cfg, guildId, client);
-    });
-
-    chanCollector.on('end', (collected, reason) => {
-        if (reason === 'time' && collected.size === 0) {
-            replyUserError(selectInteraction, {
-                type: ErrorTypes.RATE_LIMIT,
-                message: 'No channel was selected. The setting was not changed.',
-            }).catch(() => {});
-        }
-    });
-}
-
-async function handleRole(selectInteraction, rootInteraction, cfg, guildId, client) {
-    await selectInteraction.deferUpdate();
-
-    const roleSelect = new RoleSelectMenuBuilder()
-        .setCustomId('verif_cfg_role')
-        .setPlaceholder('Select a role...')
-        .setMaxValues(1);
-
-    await selectInteraction.followUp({
-        embeds: [
-            new EmbedBuilder()
-                .setTitle('Change Verified Role')
-                .setDescription(
-                    `**Current:** ${cfg.roleId ?`<@&${cfg.roleId}>`: '`Not set`'}\n\nSelect the role to assign when a user verifies.`,
-                )
-                .setColor(getColor('info')),
-        ],
-        components: [new ActionRowBuilder().addComponents(roleSelect)],
-        flags: MessageFlags.Ephemeral,
-    });
-
-    const roleCollector = rootInteraction.channel.createMessageComponentCollector({
-        componentType: ComponentType.RoleSelect,
-        filter: i =>
-            i.user.id === selectInteraction.user.id && i.customId === 'verif_cfg_role',
-        time: 60_000,
-        max: 1,
-    });
-
-    roleCollector.on('collect', async roleInteraction => {
-        await roleInteraction.deferUpdate();
-        const role = roleInteraction.roles.first();
-        const guild = rootInteraction.guild;
-        const botMember = guild.members.me;
-
-        if (role.id === guild.id || role.managed) {
-            await replyUserError(roleInteraction, {
-                type: ErrorTypes.VALIDATION,
-                message: 'Please choose a normal assignable role (not @everyone or a bot-managed role).',
-            });
-            return;
-        }
-
-        if (role.position >= botMember.roles.highest.position) {
-            await replyUserError(roleInteraction, {
-                type: ErrorTypes.PERMISSION,
-                message: 'The verified role must be below my highest role in the server role hierarchy.',
-            });
-            return;
-        }
-
-        cfg.roleId = role.id;
-        const latestConfig = await getGuildConfig(client, guildId);
-        latestConfig.verification = cfg;
-        await setGuildConfig(client, guildId, latestConfig);
-
-        await roleInteraction.followUp({
-            embeds: [successEmbed('Role Updated', `Verified role set to ${role}.`)],
-            flags: MessageFlags.Ephemeral,
-        });
-
-        await refreshDashboard(rootInteraction, cfg, guildId, client);
-    });
-
-    roleCollector.on('end', (collected, reason) => {
-        if (reason === 'time' && collected.size === 0) {
-            replyUserError(selectInteraction, {
-                type: ErrorTypes.RATE_LIMIT,
-                message: 'No role was selected. The setting was not changed.',
-            }).catch(() => {});
-        }
-    });
-}
-
-async function handleMessage(selectInteraction, rootInteraction, cfg, guildId, client) {
-    try {
-        const modal = new ModalBuilder()
-            .setCustomId('verif_cfg_message')
-            .setTitle('Edit Verification Message')
-            .addComponents(
-                new ActionRowBuilder().addComponents(
-                    new TextInputBuilder()
-                        .setCustomId('message_input')
-                        .setLabel('Message shown on the verification panel embed')
-                        .setStyle(TextInputStyle.Paragraph)
-                        .setValue(cfg.message || botConfig.verification.defaultMessage)
-                        .setMaxLength(2000)
-                        .setMinLength(1)
-                        .setRequired(true),
-                ),
-            );
-
-        await selectInteraction.showModal(modal);
-
-        const submitted = await selectInteraction
-            .awaitModalSubmit({
-                filter: i =>
-                    i.customId === 'verif_cfg_message' && i.user.id === selectInteraction.user.id,
-                time: 120_000,
-            })
-            .catch(() => null);
-
-        if (!submitted) return;
-
-        cfg.message = submitted.fields.getTextInputValue('message_input').trim();
-
-        const latestConfig = await getGuildConfig(client, guildId);
-        latestConfig.verification = cfg;
-        await setGuildConfig(client, guildId, latestConfig);
-
-        await updateLivePanel(rootInteraction.guild, cfg);
-
-        await submitted.reply({
-            embeds: [successEmbed('Message Updated', 'The verification panel has been updated with the new message.')],
-            flags: MessageFlags.Ephemeral,
-        });
-
-        await refreshDashboard(rootInteraction, cfg, guildId, client);
-    } catch (error) {
-        logger.error('Error in handleMessage:', error);
-        
-    }
-}
-
-async function handleButtonText(selectInteraction, rootInteraction, cfg, guildId, client) {
-    try {
-        const modal = new ModalBuilder()
-            .setCustomId('verif_cfg_button_text')
-            .setTitle('Edit Button Text')
-            .addComponents(
-                new ActionRowBuilder().addComponents(
-                    new TextInputBuilder()
-                        .setCustomId('button_text_input')
-                        .setLabel('Button label (max 80 characters)')
-                        .setStyle(TextInputStyle.Short)
-                        .setValue(cfg.buttonText || botConfig.verification.defaultButtonText)
-                        .setMaxLength(80)
-                        .setMinLength(1)
-                        .setRequired(true),
-                ),
-            );
-
-        await selectInteraction.showModal(modal);
-
-        const submitted = await selectInteraction
-            .awaitModalSubmit({
-                filter: i =>
-                    i.customId === 'verif_cfg_button_text' && i.user.id === selectInteraction.user.id,
-                time: 120_000,
-            })
-            .catch(() => null);
-
-        if (!submitted) return;
-
-        cfg.buttonText = submitted.fields.getTextInputValue('button_text_input').trim();
-
-        const latestConfig = await getGuildConfig(client, guildId);
-        latestConfig.verification = cfg;
-        await setGuildConfig(client, guildId, latestConfig);
-
-        await updateLivePanel(rootInteraction.guild, cfg);
-
-        await submitted.reply({
-            embeds: [successEmbed('Button Text Updated', `The verify button now reads **${cfg.buttonText}**.`)],
-            flags: MessageFlags.Ephemeral,
-        });
-
-        await refreshDashboard(rootInteraction, cfg, guildId, client);
-    } catch (error) {
-        logger.error('Error in handleButtonText:', error);
-        
-    }
-}
+                    .setTitle('السيرفر التحقق')
+                    .setDescription(c
