@@ -38,15 +38,15 @@ export default {
     slashOnly: true,
     data: new SlashCommandBuilder()
         .setName("apply")
-        .setDescription("Manage role applications")
+        .setDescription("إدارة الرتبة طلبات التقديم")
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("submit")
-                .setDescription("Submit an application for a role")
+                .setDescription("إرسال  طلب التقديم لـ  الرتبة")
                 .addStringOption((option) =>
                     option
                         .setName("application")
-                        .setDescription("The application you want to submit")
+                        .setDescription("الـ طلب التقديم أنت تريد إلى إرسال")
                         .setRequired(true)
                         .setAutocomplete(true),
                 ),
@@ -54,18 +54,18 @@ export default {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("status")
-                .setDescription("Check the status of your application")
+                .setDescription("تحقق الـ الحالة من الخاص بك طلب التقديم")
                 .addStringOption((option) =>
                     option
                         .setName("id")
-                        .setDescription("Application ID (leave empty to see all)")
+                        .setDescription("طلب التقديم ID (مغادرة فارغة إلى ترى الكل)")
                         .setRequired(false),
                 ),
         )
         .addSubcommand((subcommand) =>
             subcommand
                 .setName("list")
-                .setDescription("List available applications to apply for"),
+                .setDescription("عرض متاحة طلبات التقديم إلى تقديم لـ"),
         ),
 
     category: "Community",
@@ -184,7 +184,7 @@ export async function handleApplicationModal(interaction) {
                 eventType: EVENT_TYPES.APPLICATION_SUBMIT,
                 channelId: logChannelId,
                 data: {
-                    title: 'Application Submitted',
+                    title: 'طلب التقديم تم الإرسال',
                     lines: [
                         formatLogLine('Applicant', `<@${interaction.user.id}> (${interaction.user.tag})`),
                         formatLogLine('Application', applicationRole.name),
@@ -231,8 +231,8 @@ async function handleList(interaction) {
         }
 
         const embed = createEmbed({
-            title: "Available Applications",
-            description: "Here are the roles you can apply for:"
+            title: "متاحة طلبات التقديم",
+            description: "هنا هم الـ الرتب أنت يمكن تقديم لـ:"
         });
 
         applicationRoles.forEach((appRole, index) => {
@@ -298,7 +298,7 @@ async function handleSubmit(interaction, settings) {
 
     const modal = new ModalBuilder()
         .setCustomId(`app_modal_${applicationRole.roleId}`)
-        .setTitle(`Application for ${applicationRole.name}`);
+        .setTitle(`طلب التقديم لـ ${applicationRole.name}`);
 
     let questions = settings.questions?.length ? settings.questions : getDefaultApplicationQuestions();
     const roleSettings = await getApplicationRoleSettings(interaction.client, interaction.guild.id, applicationRole.roleId);
@@ -347,7 +347,7 @@ async function handleStatus(interaction) {
         const embed = createEmbed({
             title: `Application #${application.id} - ${application.roleName || 'Unknown Role'}`,
             description:
-                `**Application ID:** \`${application.id}\`\n` +
+                `**طلب التقديم ID:** \`${application.id}\`\n` +
                 `**Status:** ${statusView.statusEmoji} ${statusView.statusLabel}\n` +
                 `**Submitted:** ${submittedAtDisplay}`
         });
@@ -369,8 +369,8 @@ async function handleStatus(interaction) {
             .slice(0, 10);
 
         const embed = createEmbed({
-            title: "Your Applications",
-            description: `Showing ${recentApplications.length} recent application(s).`
+            title: "الخاص بك طلبات التقديم",
+            description: `عرض ${recentApplications.length} recent طلب التقديم(s).`
         });
 
         recentApplications.forEach((application) => {
