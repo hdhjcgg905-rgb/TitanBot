@@ -32,7 +32,7 @@ const CATCH_MESSAGES = [
 export default {
     data: new SlashCommandBuilder()
         .setName('fish')
-        .setDescription('Go fishing to catch fish and earn money'),
+        .setDescription('اذهب الصيد إلى اصطد الصيد و اكسب المال'),
 
     execute: withErrorHandling(async (interaction, config, client) => {
         const deferred = await InteractionHelper.safeDefer(interaction);
@@ -109,8 +109,8 @@ export default {
             };
 
             const embed = createEmbed({
-                title: 'Fishing Success!',
-                description: `${catchMessage}\n\nYou caught a **${fishCaught.emoji} ${fishCaught.name}**! You sold it for **$${finalEarned.toLocaleString()}**!${multiplierMessage}`,
+                title: 'الصيد نجاح!',
+                description: `${catchMessage}\n\nYou اصطدت  **${fishCaught.emoji} ${fishCaught.name}**! أنت بعت it لـ **$${finalEarned.toLocaleString()}**!${multiplierMessage}`,
                 color: rarityColors[fishCaught.rarity]
             })
                 .addFields(
