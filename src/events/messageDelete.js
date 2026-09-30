@@ -26,7 +26,7 @@ export default {
               guildId: message.guild.id,
               eventType: EVENT_TYPES.REACTION_ROLE_DELETE,
               data: {
-                title: 'Reaction Role Removed',
+                title: 'التفاعل الرتبة تمت الإزالة',
                 lines: [
                   formatLogLine('Channel', message.channel ? `${message.channel.name} ${message.channel.toString()}` : 'Unknown'),
                   formatLogLine('Message ID', `\`${message.id}\``),
@@ -68,10 +68,10 @@ export default {
         guildId: message.guild.id,
         eventType: EVENT_TYPES.MESSAGE_DELETE,
         data: {
-          title: 'Message deleted',
+          title: 'الرسالة محذوفة',
           lines: metaLines,
           quoted: true,
-          section: messageBody ? { title: 'Message', body: messageBody || '*(empty message)*' } : null,
+          section: messageBody ? { title: 'الرسالة', body: messageBody || '*(empty message)*' } : null,
           userId: message.author?.id,
           channelId: message.channel.id,
         }
